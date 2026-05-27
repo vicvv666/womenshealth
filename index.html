@@ -12,7 +12,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="DENY">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; mailto:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://github.com https://raw.githubusercontent.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https://github.com https://raw.githubusercontent.com; connect-src 'self' https://github.com https://raw.githubusercontent.com; mailto:">
 <meta name="theme-color" content="#e8668a">
 <meta property="og:title" content="女性健康计算器 | Women's Health Calculator">
 <meta property="og:description" content="经期追踪、BMI计算、预产期、每日热量、饮水追踪、排卵计算 — 多功能健康管理工具">
@@ -596,6 +596,74 @@
  .footer-links { gap: 1rem; }
  }
 
+ /* APP Download Section */
+ .app-download-section {
+ max-width: 900px;
+ margin: 1.5rem auto;
+ padding: 0 1rem;
+ }
+ .app-download-card {
+ background: var(--surface);
+ border-radius: var(--radius);
+ box-shadow: var(--shadow-lg);
+ overflow: hidden;
+ display: flex;
+ align-items: center;
+ gap: 2rem;
+ padding: 1.5rem;
+ }
+ .app-cover-img {
+ width: 180px;
+ height: 180px;
+ border-radius: var(--radius-sm);
+ object-fit: cover;
+ flex-shrink: 0;
+ box-shadow: 0 4px 16px rgba(232,102,138,0.15);
+ }
+ .app-download-info h2 {
+ font-size: 1.4rem;
+ color: var(--primary);
+ margin-bottom: 0.5rem;
+ }
+ .app-download-info p {
+ color: var(--text-muted);
+ margin-bottom: 1rem;
+ line-height: 1.5;
+ }
+ .btn-download {
+ display: inline-block;
+ background: linear-gradient(135deg, #e8668a, #c2506e);
+ color: white !important;
+ padding: 0.8rem 2rem;
+ border-radius: 50px;
+ font-size: 1rem;
+ font-weight: 600;
+ text-decoration: none;
+ transition: all 0.3s ease;
+ box-shadow: 0 4px 14px rgba(232,102,138,0.3);
+ }
+ .btn-download:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(232,102,138,0.4);
+ }
+ .download-hint {
+ font-size: 0.8rem;
+ color: var(--text-muted);
+ margin-top: 0.3rem;
+ margin-bottom: 0;
+ }
+ @media (max-width: 600px) {
+ .app-download-card {
+ flex-direction: column;
+ text-align: center;
+ gap: 1rem;
+ }
+ .app-cover-img {
+ width: 140px;
+ height: 140px;
+ }
+ }
+
  /* Responsive */
  @media (max-width: 600px) {
  .header h1 { font-size: 1.5rem; }
@@ -922,11 +990,27 @@
 
 </main>
 
+<!-- ========== APP 下载区 ========== -->
+<div class="app-download-section" id="app-download">
+ <div class="app-download-card">
+ <img src="app-cover.png" alt="女性健康计算器 APP" class="app-cover-img" loading="lazy">
+ <div class="app-download-info">
+ <h2 data-i18n="download_title">📱 下载 APP</h2>
+ <p data-i18n="download_desc">随时随地使用女性健康计算器，无需网络连接，离线也能用！</p>
+ <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" class="btn-download" download>
+ <span data-i18n="download_btn">⬇️ 下载 Android APK</span>
+ </a>
+ <p class="download-hint" data-i18n="download_hint">适用于 Android 5.0+ 设备 · 安装时请允许"未知来源"</p>
+ </div>
+ </div>
+</div>
+
 <footer class="footer" role="contentinfo">
  <div class="footer-links">
-  <a href="javascript:void(0)" onclick="openModal('terms')" data-i18n="footer_link_terms">📜 使用条款</a>
-  <a href="javascript:void(0)" onclick="openModal('disclaimer')" data-i18n="footer_link_disclaimer">⚠️ 免责声明</a>
-  <a href="javascript:void(0)" onclick="openModal('contact')" data-i18n="footer_link_contact">📬 联系方式</a>
+ <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" download data-i18n="footer_link_download">⬇️ 下载APP</a>
+ <a href="javascript:void(0)" onclick="openModal('terms')" data-i18n="footer_link_terms">📜 使用条款</a>
+ <a href="javascript:void(0)" onclick="openModal('disclaimer')" data-i18n="footer_link_disclaimer">⚠️ 免责声明</a>
+ <a href="javascript:void(0)" onclick="openModal('contact')" data-i18n="footer_link_contact">📬 联系方式</a>
  </div>
  <div class="footer-brand" data-i18n="footer_brand">🌸 女性健康计算器 — 了解身体，关爱自己</div>
  <div data-i18n="footer_copyright">© 2026 Women's Health Calculator. All rights reserved.</div>
@@ -1093,8 +1177,13 @@ const i18n = {
   footer_contact_desc: '如有问题、建议或反馈，欢迎通过以下方式联系我们：',
   footer_contact_note: '我们将在合理时间内回复您的来信。',
   footer_brand: '🌸 女性健康计算器 — 了解身体，关爱自己',
-  footer_copyright: '© 2026 女性健康计算器 保留所有权利。',
-  alert_select_lmp: '请选择末次月经日期',
+ footer_copyright: '© 2026 女性健康计算器 保留所有权利。',
+ footer_link_download: '⬇️ 下载APP',
+ download_title: '📱 下载 APP',
+ download_desc: '随时随地使用女性健康计算器，无需网络连接，离线也能用！',
+ download_btn: '⬇️ 下载 Android APK',
+ download_hint: '适用于 Android 5.0+ 设备 · 安装时请允许"未知来源"',
+ alert_select_lmp: '请选择末次月经日期',
   alert_input_hw: '请输入身高和体重',
   alert_fill_all: '请填写完整信息',
   days_later: '天后',
@@ -1223,8 +1312,13 @@ const i18n = {
   footer_contact_desc: '如有問題、建議或回饋，歡迎透過以下方式聯絡我們：',
   footer_contact_note: '我們將在合理時間內回覆您的來信。',
   footer_brand: '🌸 女性健康計算器 — 了解身體，關愛自己',
-  footer_copyright: '© 2026 女性健康計算器 保留所有權利。',
-  alert_select_lmp: '請選擇末次月經日期',
+ footer_copyright: '© 2026 女性健康計算器 保留所有權利。',
+ footer_link_download: '⬇️ 下載APP',
+ download_title: '📱 下載 APP',
+ download_desc: '隨時隨地使用女性健康計算器，無需網路連線，離線也能用！',
+ download_btn: '⬇️ 下載 Android APK',
+ download_hint: '適用於 Android 5.0+ 裝置 · 安裝時請允許「未知來源」',
+ alert_select_lmp: '請選擇末次月經日期',
   alert_input_hw: '請輸入身高和體重',
   alert_fill_all: '請填寫完整資訊',
   days_later: '天後',
@@ -1352,9 +1446,14 @@ const i18n = {
   footer_contact_title: '📬 Contact Us',
   footer_contact_desc: 'For questions, suggestions, or feedback, please reach out to us:',
   footer_contact_note: 'We will respond to your message within a reasonable time.',
-  footer_brand: "🌸 Women's Health Calculator — Know your body, care for yourself",
-  footer_copyright: '© 2026 Women\'s Health Calculator. All rights reserved.',
-  alert_select_lmp: 'Please select the first day of your last period',
+ footer_brand: "🌸 Women's Health Calculator — Know your body, care for yourself",
+ footer_copyright: '© 2026 Women\\'s Health Calculator. All rights reserved.',
+ footer_link_download: '⬇️ Download APP',
+ download_title: '📱 Download APP',
+ download_desc: 'Use the Women\\'s Health Calculator anytime, anywhere — works offline without internet!',
+ download_btn: '⬇️ Download Android APK',
+ download_hint: 'For Android 5.0+ devices · Allow "Unknown sources" to install',
+ alert_select_lmp: 'Please select the first day of your last period',
   alert_input_hw: 'Please enter your height and weight',
   alert_fill_all: 'Please fill in all information',
   days_later: 'days later',
