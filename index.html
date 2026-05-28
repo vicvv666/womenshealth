@@ -2,737 +2,1868 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>女性健康计算器</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>女性健康计算器 | Women's Health Calculator</title>
+<meta name="description" content="女性健康计算器 — 经期追踪、BMI计算、预产期、每日热量、饮水追踪、排卵计算。多功能健康管理工具，了解身体，关爱自己。">
+<meta name="keywords" content="女性健康,健康计算器,经期追踪,BMI计算,预产期计算,排卵日,热量计算,饮水追踪,period tracker,ovulation calculator,due date calculator,BMI calculator">
+<meta name="author" content="Women's Health Calculator">
+<meta name="robots" content="index, follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://github.com https://raw.githubusercontent.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https://github.com https://raw.githubusercontent.com; connect-src 'self' https://github.com https://raw.githubusercontent.com; mailto:">
 <meta name="theme-color" content="#e8668a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="mobile-web-app-capable" content="yes">
+<meta property="og:title" content="女性健康计算器 | Women's Health Calculator">
+<meta property="og:description" content="经期追踪、BMI计算、预产期、每日热量、饮水追踪、排卵计算 — 多功能健康管理工具">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="zh_Hant">
+<meta property="og:locale:alternate" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="女性健康计算器 | Women's Health Calculator">
+<meta name="twitter:description" content="经期追踪、BMI计算、预产期、每日热量、饮水追踪、排卵计算 — 多功能健康管理工具">
+<link rel="canonical" href="">
+<link rel="alternate" hreflang="zh-CN" href="">
+<link rel="alternate" hreflang="zh-Hant" href="">
+<link rel="alternate" hreflang="en" href="">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "女性健康计算器",
+  "alternateName": "Women's Health Calculator",
+  "description": "经期追踪、BMI计算、预产期、每日热量、饮水追踪、排卵计算 — 多功能健康管理工具",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": ["经期追踪", "BMI计算", "预产期计算", "每日热量计算", "饮水追踪", "排卵日计算"]
+}
+</script>
 <style>
-:root {
-  --bg: #fdf6f8;
-  --surface: #ffffff;
-  --primary: #e8668a;
-  --primary-light: #fce4ec;
-  --primary-dark: #c2506e;
-  --accent: #7ec8a0;
-  --accent-light: #e8f5e9;
-  --text: #3d2c33;
-  --text-muted: #8a7078;
-  --border: #f0d4db;
-  --shadow: 0 2px 12px rgba(232,102,138,0.08);
-  --shadow-lg: 0 8px 32px rgba(232,102,138,0.12);
-  --radius: 16px;
-  --radius-sm: 10px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --nav-height: 64px;
-  --header-height: 56px;
-}
+ :root {
+ --bg: #fdf6f8;
+ --surface: #ffffff;
+ --primary: #e8668a;
+ --primary-light: #fce4ec;
+ --primary-dark: #c2506e;
+ --accent: #7ec8a0;
+ --accent-light: #e8f5e9;
+ --text: #3d2c33;
+ --text-muted: #8a7078;
+ --border: #f0d4db;
+ --shadow: 0 2px 12px rgba(232,102,138,0.08);
+ --shadow-lg: 0 8px 32px rgba(232,102,138,0.12);
+ --radius: 16px;
+ --radius-sm: 10px;
+ }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { 
-  height: 100%; overflow: hidden; 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: var(--bg); color: var(--text);
-  touch-action: manipulation;
-  -webkit-text-size-adjust: 100%;
-  user-select: none; -webkit-user-select: none;
-}
-input, select, button { user-select: auto; -webkit-user-select: auto; }
+ * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ===== App Shell ===== */
-.app {
-  height: 100%; display: flex; flex-direction: column;
-  padding-top: var(--safe-top);
-  padding-bottom: calc(var(--nav-height) + var(--safe-bottom));
-}
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+ background: var(--bg);
+ color: var(--text);
+ line-height: 1.6;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ }
 
-/* Top App Bar */
-.app-bar {
-  height: var(--header-height);
-  background: linear-gradient(135deg, #e8668a 0%, #f4a0b4 50%, #7ec8a0 100%);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 16px; flex-shrink: 0; position: relative; z-index: 10;
-}
-.app-bar h1 { color: white; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lang-switcher {
-  display: flex; gap: 0; border-radius: 50px; overflow: hidden;
-  border: 1.5px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(6px); flex-shrink: 0; margin-left: 12px;
-}
-.lang-btn {
-  background: transparent; border: none; color: rgba(255,255,255,0.7);
-  padding: 5px 10px; font-size: 0.72rem; font-weight: 600; cursor: pointer;
-  transition: all 0.2s;
-}
-.lang-btn.active { background: rgba(255,255,255,0.3); color: white; }
+ /* Header */
+ .header {
+ background: linear-gradient(135deg, #e8668a 0%, #f4a0b4 50%, #7ec8a0 100%);
+ padding: 2rem 1rem;
+ text-align: center;
+ color: white;
+ position: relative;
+ overflow: hidden;
+ }
+ .header::before {
+ content: '';
+ position: absolute;
+ top: -50%; left: -50%;
+ width: 200%; height: 200%;
+ background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%);
+ animation: shimmer 8s ease-in-out infinite;
+ }
+ @keyframes shimmer {
+ 0%, 100% { transform: translateX(0); }
+ 50% { transform: translateX(20px); }
+ }
+ .header h1 {
+ font-size: 2rem;
+ font-weight: 700;
+ position: relative;
+ letter-spacing: 0.02em;
+ }
+ .header p {
+ font-size: 0.95rem;
+ opacity: 0.9;
+ margin-top: 0.5rem;
+ position: relative;
+ }
 
-/* Scrollable Content */
-.content {
-  flex: 1; overflow-y: auto; overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding: 16px 16px 24px;
-  scroll-behavior: smooth;
-}
+ /* Language Switcher */
+ .lang-switcher {
+ position: absolute;
+ top: 1rem;
+ right: 1rem;
+ z-index: 10;
+ display: flex;
+ gap: 0;
+ border-radius: 50px;
+ overflow: hidden;
+ border: 1.5px solid rgba(255,255,255,0.5);
+ background: rgba(255,255,255,0.15);
+ backdrop-filter: blur(6px);
+ }
+ .lang-btn {
+ background: transparent;
+ border: none;
+ color: rgba(255,255,255,0.75);
+ padding: 0.4rem 0.9rem;
+ font-size: 0.8rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.25s ease;
+ }
+ .lang-btn:hover { color: white; }
+ .lang-btn.active {
+ background: rgba(255,255,255,0.3);
+ color: white;
+ }
 
-/* Page Sections */
-.page { display: none; animation: fadeUp 0.3s ease; }
-.page.active { display: block; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+ /* Tab Navigation */
+ .tabs {
+ display: flex;
+ gap: 0.5rem;
+ padding: 1rem;
+ max-width: 900px;
+ margin: -1.5rem auto 0;
+ position: relative;
+ z-index: 2;
+ flex-wrap: wrap;
+ justify-content: center;
+ }
+ .tab-btn {
+ background: var(--surface);
+ border: 1.5px solid var(--border);
+ border-radius: 50px;
+ padding: 0.6rem 1.2rem;
+ font-size: 0.85rem;
+ cursor: pointer;
+ transition: all 0.25s ease;
+ color: var(--text-muted);
+ font-weight: 500;
+ white-space: nowrap;
+ }
+ .tab-btn:hover {
+ border-color: var(--primary);
+ color: var(--primary);
+ }
+ .tab-btn.active {
+ background: var(--primary);
+ color: white;
+ border-color: var(--primary);
+ box-shadow: 0 4px 14px rgba(232,102,138,0.3);
+ }
 
-/* Cards */
-.card {
-  background: var(--surface); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 20px; margin-bottom: 16px;
-}
-.card-title { font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
-.card-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+ /* Main Content */
+ .container {
+ max-width: 900px;
+ margin: 1.5rem auto;
+ padding: 0 1rem 3rem;
+ }
 
-/* Form Elements — touch-friendly */
-.form-group { margin-bottom: 16px; }
-.form-group label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-.form-group .hint { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; margin-left: 4px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+ .calculator-card {
+ display: none;
+ background: var(--surface);
+ border-radius: var(--radius);
+ box-shadow: var(--shadow-lg);
+ padding: 2rem;
+ animation: fadeUp 0.35s ease;
+ }
+ .calculator-card.active { display: block; }
 
-input, select {
-  width: 100%; padding: 14px 12px; border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm); font-size: 16px; /* 16px prevents iOS zoom */
-  background: var(--bg); color: var(--text); transition: border-color 0.2s;
-  -webkit-appearance: none; appearance: none;
-}
-input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238a7078' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+ @keyframes fadeUp {
+ from { opacity: 0; transform: translateY(12px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
 
-.btn-calc {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 14px 24px; font-size: 1rem; font-weight: 600;
-  color: white; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  border: none; border-radius: 50px; cursor: pointer;
-  transition: all 0.2s; min-height: 50px;
-  box-shadow: 0 4px 14px rgba(232,102,138,0.3);
-}
-.btn-calc:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(232,102,138,0.3); }
+ .card-title {
+ font-size: 1.35rem;
+ font-weight: 700;
+ margin-bottom: 0.3rem;
+ color: var(--primary-dark);
+ }
+ .card-desc {
+ font-size: 0.88rem;
+ color: var(--text-muted);
+ margin-bottom: 1.5rem;
+ }
 
-/* Result Box */
-.result-box { background: linear-gradient(135deg, var(--primary-light), #fef5f7); border-radius: var(--radius); padding: 16px; margin-top: 16px; display: none; }
-.result-box.show { display: block; animation: fadeUp 0.3s ease; }
-.result-title { font-size: 0.78rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
-.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.result-item { background: white; border-radius: var(--radius-sm); padding: 14px 10px; text-align: center; }
-.result-item.full { grid-column: 1 / -1; }
-.result-value { font-size: 1.4rem; font-weight: 700; color: var(--primary); line-height: 1.2; }
-.result-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; }
-.result-bar { height: 6px; background: var(--border); border-radius: 3px; margin-top: 6px; overflow: hidden; }
-.result-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-.result-tag { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-top: 6px; }
+ /* Form Elements */
+ .form-group {
+ margin-bottom: 1.2rem;
+ }
+ .form-group label {
+ display: block;
+ font-size: 0.85rem;
+ font-weight: 600;
+ margin-bottom: 0.4rem;
+ color: var(--text);
+ }
+ .form-group .hint {
+ font-size: 0.78rem;
+ color: var(--text-muted);
+ font-weight: 400;
+ margin-left: 0.3rem;
+ }
+ .form-row {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ }
+ .form-row-3 {
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr;
+ gap: 1rem;
+ }
 
-/* Period Calendar */
-.calendar-wrap { margin-top: 12px; }
-.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.calendar-header span { font-weight: 600; font-size: 0.92rem; }
-.cal-nav { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 0.85rem; min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
-.cal-nav:active { background: var(--primary-light); }
-.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; text-align: center; }
-.cal-day-name { font-size: 0.68rem; color: var(--text-muted); font-weight: 600; padding: 4px 0; }
-.cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.78rem; cursor: default; transition: all 0.15s; }
-.cal-day.empty { background: none; }
-.cal-day.period { background: var(--primary); color: white; font-weight: 600; }
-.cal-day.ovulation { background: var(--accent); color: white; font-weight: 600; }
-.cal-day.fertile { background: var(--accent-light); color: #2e7d32; }
-.cal-day.today { box-shadow: 0 0 0 2px var(--primary); }
-.cal-day.other-month { opacity: 0.3; }
-.legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
-.legend-item { display: flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--text-muted); }
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+ input, select {
+ width: 100%;
+ padding: 0.7rem 1rem;
+ border: 1.5px solid var(--border);
+ border-radius: var(--radius-sm);
+ font-size: 0.9rem;
+ transition: all 0.2s ease;
+ background: var(--bg);
+ color: var(--text);
+ }
+ input:focus, select:focus {
+ outline: none;
+ border-color: var(--primary);
+ box-shadow: 0 0 0 3px var(--primary-light);
+ }
 
-/* BMI Scale */
-.bmi-scale { display: flex; height: 10px; border-radius: 5px; overflow: hidden; margin: 8px 0 4px; }
-.bmi-scale div { flex: 1; }
-.bmi-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--text-muted); }
+ .btn-calc {
+ background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+ color: white;
+ border: none;
+ border-radius: 50px;
+ padding: 0.8rem 2rem;
+ font-size: 0.95rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.25s ease;
+ margin-top: 0.5rem;
+ display: inline-flex;
+ align-items: center;
+ gap: 0.5rem;
+ }
+ .btn-calc:hover {
+ transform: translateY(-1px);
+ box-shadow: 0 6px 20px rgba(232,102,138,0.35);
+ }
+ .btn-calc:active { transform: translateY(0); }
 
-/* Water Tracker */
-.water-glasses { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; justify-content: center; }
-.water-glass { width: 48px; height: 60px; border: 2.5px solid var(--border); border-radius: 0 0 12px 12px; position: relative; cursor: pointer; transition: all 0.2s; overflow: hidden; }
-.water-glass::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0%; background: linear-gradient(to top, #64b5f6, #90caf9); transition: height 0.3s ease; border-radius: 0 0 9px 9px; }
-.water-glass.filled::before { height: 100%; }
-.water-glass.filled { border-color: #64b5f6; }
-.water-glass:active { transform: scale(1.15); }
+ /* Results */
+ .result-box {
+ background: linear-gradient(135deg, var(--primary-light), #fef5f7);
+ border-radius: var(--radius);
+ padding: 1.5rem;
+ margin-top: 1.5rem;
+ display: none;
+ }
+ .result-box.show {
+ display: block;
+ animation: fadeUp 0.3s ease;
+ }
+ .result-title {
+ font-size: 0.85rem;
+ font-weight: 600;
+ color: var(--primary-dark);
+ margin-bottom: 0.8rem;
+ text-transform: uppercase;
+ letter-spacing: 0.05em;
+ }
+ .result-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 1rem;
+ }
+ .result-item {
+ background: white;
+ border-radius: var(--radius-sm);
+ padding: 1rem;
+ text-align: center;
+ }
+ .result-item.full { grid-column: 1 / -1; }
+ .result-value {
+ font-size: 1.6rem;
+ font-weight: 700;
+ color: var(--primary);
+ line-height: 1.2;
+ }
+ .result-label {
+ font-size: 0.78rem;
+ color: var(--text-muted);
+ margin-top: 0.3rem;
+ }
+ .result-bar {
+ height: 6px;
+ background: var(--border);
+ border-radius: 3px;
+ margin-top: 0.5rem;
+ overflow: hidden;
+ }
+ .result-bar-fill {
+ height: 100%;
+ border-radius: 3px;
+ transition: width 0.8s ease;
+ }
+ .result-tag {
+ display: inline-block;
+ padding: 0.25rem 0.75rem;
+ border-radius: 50px;
+ font-size: 0.78rem;
+ font-weight: 600;
+ margin-top: 0.3rem;
+ }
 
-/* ===== Bottom Navigation ===== */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  height: calc(var(--nav-height) + var(--safe-bottom));
-  padding-bottom: var(--safe-bottom);
-  background: white; border-top: 1px solid var(--border);
-  display: flex; justify-content: space-around; align-items: center;
-  z-index: 100; box-shadow: 0 -2px 12px rgba(0,0,0,0.05);
-}
-.nav-item {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 6px 0; cursor: pointer; border: none; background: none;
-  min-width: 56px; min-height: 50px; transition: all 0.2s;
-  -webkit-tap-highlight-color: transparent;
-}
-.nav-icon { font-size: 1.4rem; line-height: 1; transition: transform 0.2s; }
-.nav-label { font-size: 0.62rem; color: var(--text-muted); margin-top: 3px; font-weight: 500; transition: color 0.2s; }
-.nav-item.active .nav-icon { transform: scale(1.15); }
-.nav-item.active .nav-label { color: var(--primary); font-weight: 700; }
+ /* Period Calendar */
+ .calendar-wrap {
+ margin-top: 1rem;
+ }
+ .calendar-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 0.8rem;
+ }
+ .calendar-header span {
+ font-weight: 600;
+ font-size: 0.95rem;
+ }
+ .cal-nav {
+ background: none;
+ border: 1.5px solid var(--border);
+ border-radius: 8px;
+ padding: 0.3rem 0.7rem;
+ cursor: pointer;
+ font-size: 0.85rem;
+ transition: all 0.2s;
+ }
+ .cal-nav:hover { border-color: var(--primary); color: var(--primary); }
+ .calendar-grid {
+ display: grid;
+ grid-template-columns: repeat(7, 1fr);
+ gap: 4px;
+ text-align: center;
+ }
+ .cal-day-name {
+ font-size: 0.72rem;
+ color: var(--text-muted);
+ font-weight: 600;
+ padding: 0.3rem 0;
+ }
+ .cal-day {
+ aspect-ratio: 1;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 50%;
+ font-size: 0.82rem;
+ cursor: default;
+ position: relative;
+ transition: all 0.15s;
+ }
+ .cal-day.empty { background: none; }
+ .cal-day.period { background: var(--primary); color: white; font-weight: 600; }
+ .cal-day.ovulation { background: var(--accent); color: white; font-weight: 600; }
+ .cal-day.fertile { background: var(--accent-light); color: #2e7d32; }
+ .cal-day.today { box-shadow: 0 0 0 2px var(--primary); }
+ .cal-day.other-month { opacity: 0.3; }
 
-/* Footer (inside content scroll) */
-.footer {
- text-align: center; padding: 16px 12px 8px; font-size: 0.72rem; color: var(--text-muted);
- border-top: 1px solid var(--border); margin-top: 16px;
-}
-.footer-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
-.footer-links a { color: var(--primary); text-decoration: none; font-weight: 500; font-size: 0.75rem; }
-.footer-brand { margin-top: 4px; font-size: 0.68rem; }
+ .legend {
+ display: flex;
+ gap: 1rem;
+ margin-top: 0.8rem;
+ flex-wrap: wrap;
+ }
+ .legend-item {
+ display: flex;
+ align-items: center;
+ gap: 0.4rem;
+ font-size: 0.78rem;
+ color: var(--text-muted);
+ }
+ .legend-dot {
+ width: 10px; height: 10px;
+ border-radius: 50%;
+ flex-shrink: 0;
+ }
 
-/* APP Download Section */
-.app-download-section {
- display: flex; align-items: center; gap: 16px;
- background: var(--surface); border-radius: var(--radius);
- box-shadow: var(--shadow-lg); padding: 16px; margin: 16px 0 0;
-}
-.app-cover-img {
- width: 100px; height: 100px; border-radius: 20px;
- object-fit: cover; flex-shrink: 0;
- box-shadow: 0 2px 8px rgba(232,102,138,0.15);
-}
-.app-download-info { flex: 1; }
-.app-download-title { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-.app-download-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
-.btn-download {
- display: inline-block; background: linear-gradient(135deg, #e8668a, #c2506e);
- color: #fff !important; padding: 8px 20px; border-radius: 50px;
- font-size: 0.85rem; font-weight: 600; text-decoration: none;
- box-shadow: 0 3px 10px rgba(232,102,138,0.3);
-}
-.download-hint { font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; }
+ /* BMI Scale */
+ .bmi-scale {
+ display: flex;
+ height: 10px;
+ border-radius: 5px;
+ overflow: hidden;
+ margin: 0.8rem 0 0.3rem;
+ }
+ .bmi-scale div { flex: 1; }
+ .bmi-labels {
+ display: flex;
+ justify-content: space-between;
+ font-size: 0.7rem;
+ color: var(--text-muted);
+ }
 
-/* Modal */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1000; justify-content: center; align-items: flex-end; backdrop-filter: blur(3px); }
-.modal-overlay.show { display: flex; animation: modalFadeIn 0.2s ease; }
-@keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
-.modal-box { background: var(--surface); border-radius: 24px 24px 0 0; width: 100%; max-height: 80vh; overflow-y: auto; padding: 24px 20px calc(24px + var(--safe-bottom)); animation: modalSlideUp 0.3s ease; }
-@keyframes modalSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px; }
-.modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 1.2rem; color: var(--text-muted); cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.modal-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px; }
-.modal-box p, .modal-box li { font-size: 0.82rem; line-height: 1.8; color: var(--text); }
-.modal-box ul { list-style: none; padding: 0; }
-.modal-box ul li { padding: 6px 0 6px 16px; position: relative; }
-.modal-box ul li::before { content: '•'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
-.modal-section { margin-bottom: 16px; }
-.modal-section:last-child { margin-bottom: 0; }
-.modal-section h4 { font-size: 0.9rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
-.modal-box a { color: var(--primary); text-decoration: none; }
+ /* Water Tracker */
+ .water-glasses {
+ display: flex;
+ gap: 0.6rem;
+ flex-wrap: wrap;
+ margin: 1rem 0;
+ justify-content: center;
+ }
+ .water-glass {
+ width: 44px; height: 56px;
+ border: 2.5px solid var(--border);
+ border-radius: 0 0 10px 10px;
+ position: relative;
+ cursor: pointer;
+ transition: all 0.2s;
+ overflow: hidden;
+ }
+ .water-glass::before {
+ content: '';
+ position: absolute;
+ bottom: 0; left: 0; right: 0;
+ height: 0%;
+ background: linear-gradient(to top, #64b5f6, #90caf9);
+ transition: height 0.3s ease;
+ border-radius: 0 0 7px 7px;
+ }
+ .water-glass.filled::before { height: 100%; }
+ .water-glass.filled { border-color: #64b5f6; }
+ .water-glass:hover { transform: scale(1.1); }
+
+ /* Footer */
+ .footer {
+ border-top: 1px solid var(--border);
+ margin-top: auto;
+ padding: 1.5rem 1rem;
+ text-align: center;
+ font-size: 0.78rem;
+ color: var(--text-muted);
+ }
+ .footer-links {
+ display: flex;
+ justify-content: center;
+ gap: 1.5rem;
+ flex-wrap: wrap;
+ margin-bottom: 0.6rem;
+ }
+ .footer-links a {
+ color: var(--primary);
+ text-decoration: none;
+ font-weight: 500;
+ font-size: 0.82rem;
+ transition: color 0.2s;
+ cursor: pointer;
+ }
+ .footer-links a:hover {
+ color: var(--primary-dark);
+ text-decoration: underline;
+ }
+ .footer-brand {
+ margin-top: 0.3rem;
+ font-size: 0.75rem;
+ }
+
+ /* Modal */
+ .modal-overlay {
+ display: none;
+ position: fixed;
+ inset: 0;
+ background: rgba(0,0,0,0.4);
+ z-index: 1000;
+ justify-content: center;
+ align-items: center;
+ backdrop-filter: blur(3px);
+ animation: modalFadeIn 0.25s ease;
+ }
+ .modal-overlay.show {
+ display: flex;
+ }
+ @keyframes modalFadeIn {
+ from { opacity: 0; }
+ to { opacity: 1; }
+ }
+ .modal-box {
+ background: var(--surface);
+ border-radius: var(--radius);
+ box-shadow: var(--shadow-lg);
+ max-width: 640px;
+ width: 92%;
+ max-height: 80vh;
+ overflow-y: auto;
+ padding: 2rem;
+ position: relative;
+ animation: modalSlideUp 0.3s ease;
+ }
+ @keyframes modalSlideUp {
+ from { opacity: 0; transform: translateY(20px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ .modal-close {
+ position: absolute;
+ top: 1rem;
+ right: 1rem;
+ background: none;
+ border: none;
+ font-size: 1.4rem;
+ color: var(--text-muted);
+ cursor: pointer;
+ width: 32px;
+ height: 32px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: all 0.2s;
+ }
+ .modal-close:hover {
+ background: var(--primary-light);
+ color: var(--primary-dark);
+ }
+ .modal-box h3 {
+ font-size: 1.2rem;
+ font-weight: 700;
+ color: var(--primary-dark);
+ margin-bottom: 1rem;
+ padding-right: 2rem;
+ }
+ .modal-box p, .modal-box li {
+ font-size: 0.85rem;
+ line-height: 1.8;
+ color: var(--text);
+ }
+ .modal-box ul {
+ list-style: none;
+ padding: 0;
+ }
+ .modal-box ul li {
+ padding: 0.3rem 0;
+ padding-left: 1.2rem;
+ position: relative;
+ }
+ .modal-box ul li::before {
+ content: '•';
+ position: absolute;
+ left: 0;
+ color: var(--primary);
+ font-weight: 700;
+ }
+ .modal-box .modal-section {
+ margin-bottom: 1.2rem;
+ }
+ .modal-box .modal-section:last-child {
+ margin-bottom: 0;
+ }
+ .modal-box .modal-section h4 {
+ font-size: 0.95rem;
+ font-weight: 600;
+ color: var(--primary-dark);
+ margin-bottom: 0.5rem;
+ }
+ .modal-box a {
+ color: var(--primary);
+ text-decoration: none;
+ }
+ .modal-box a:hover {
+ text-decoration: underline;
+ }
+ @media (max-width: 600px) {
+ .modal-box { padding: 1.5rem; }
+ .footer-links { gap: 1rem; }
+ }
+
+ /* APP Download Section */
+ .app-download-section {
+ max-width: 900px;
+ margin: 1.5rem auto;
+ padding: 0 1rem;
+ }
+ .app-download-card {
+ background: var(--surface);
+ border-radius: var(--radius);
+ box-shadow: var(--shadow-lg);
+ overflow: hidden;
+ display: flex;
+ align-items: center;
+ gap: 2rem;
+ padding: 1.5rem;
+ }
+ .app-cover-img {
+ width: 180px;
+ height: 180px;
+ border-radius: var(--radius-sm);
+ object-fit: cover;
+ flex-shrink: 0;
+ box-shadow: 0 4px 16px rgba(232,102,138,0.15);
+ }
+ .app-download-info h2 {
+ font-size: 1.4rem;
+ color: var(--primary);
+ margin-bottom: 0.5rem;
+ }
+ .app-download-info p {
+ color: var(--text-muted);
+ margin-bottom: 1rem;
+ line-height: 1.5;
+ }
+ .btn-download {
+ display: inline-block;
+ background: linear-gradient(135deg, #e8668a, #c2506e);
+ color: white !important;
+ padding: 0.8rem 2rem;
+ border-radius: 50px;
+ font-size: 1rem;
+ font-weight: 600;
+ text-decoration: none;
+ transition: all 0.3s ease;
+ box-shadow: 0 4px 14px rgba(232,102,138,0.3);
+ }
+ .btn-download:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 20px rgba(232,102,138,0.4);
+ }
+ .download-hint {
+ font-size: 0.8rem;
+ color: var(--text-muted);
+ margin-top: 0.3rem;
+ margin-bottom: 0;
+ }
+ @media (max-width: 600px) {
+ .app-download-card {
+ flex-direction: column;
+ text-align: center;
+ gap: 1rem;
+ }
+ .app-cover-img {
+ width: 140px;
+ height: 140px;
+ }
+ }
+
+ /* Responsive */
+ @media (max-width: 600px) {
+ .header h1 { font-size: 1.5rem; }
+ .tabs { gap: 0.3rem; }
+ .tab-btn { padding: 0.5rem 0.8rem; font-size: 0.78rem; }
+ .calculator-card { padding: 1.2rem; }
+ .form-row, .form-row-3 { grid-template-columns: 1fr; }
+ .result-grid { grid-template-columns: 1fr; }
+ .lang-switcher { top: 0.5rem; right: 0.5rem; }
+ .lang-btn { padding: 0.3rem 0.6rem; font-size: 0.72rem; }
+ }
 </style>
 </head>
 <body>
 
-<div class="app">
-  <!-- App Bar -->
-  <header class="app-bar" role="banner">
-    <h1 data-i18n="header_title">🌸 女性健康计算器</h1>
-    <div class="lang-switcher" role="navigation" aria-label="Language">
-      <button class="lang-btn" data-lang="zh-CN" onclick="switchLang('zh-CN')">简体</button>
-      <button class="lang-btn" data-lang="zh-Hant" onclick="switchLang('zh-Hant')">繁體</button>
-      <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
-    </div>
-  </header>
+<header class="header" role="banner">
+ <div class="lang-switcher" role="navigation" aria-label="Language selector">
+  <button class="lang-btn" data-lang="zh-CN" onclick="switchLang('zh-CN')" aria-label="简体中文">简体</button>
+  <button class="lang-btn" data-lang="zh-Hant" onclick="switchLang('zh-Hant')" aria-label="繁體中文">繁體</button>
+  <button class="lang-btn" data-lang="en" onclick="switchLang('en')" aria-label="English">EN</button>
+ </div>
+ <h1 data-i18n="header_title">🌸 女性健康计算器</h1>
+ <p data-i18n="header_desc">了解身体，关爱自己 — 多功能健康管理工具</p>
+</header>
 
-  <!-- Scrollable Content -->
-  <main class="content" role="main">
-
-    <!-- ========== 经期追踪 ========== -->
-    <div class="page active" id="page-period">
-      <div class="card">
-        <div class="card-title" data-i18n="period_title">经期追踪 & 预测</div>
-        <div class="card-desc" data-i18n="period_desc">输入你的经期信息，预测下次月经、排卵日和易孕期</div>
-        <div class="form-group">
-          <label data-i18n="period_lmp">末次月经第一天 <span class="hint">(LMP)</span></label>
-          <input type="date" id="lmp-date">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label data-i18n="period_cycle">月经周期 <span class="hint">(天)</span></label>
-            <input type="number" id="cycle-length" placeholder="28" min="20" max="45" value="28">
-          </div>
-          <div class="form-group">
-            <label data-i18n="period_length">经期天数 <span class="hint">(天)</span></label>
-            <input type="number" id="period-length" placeholder="5" min="2" max="10" value="5">
-          </div>
-        </div>
-        <button class="btn-calc" onclick="calcPeriod()" data-i18n="period_btn">📅 计算预测</button>
-        <div class="result-box" id="period-result">
-          <div class="result-title" data-i18n="period_result_title">预测结果</div>
-          <div class="result-grid">
-            <div class="result-item"><div class="result-value" id="next-period">--</div><div class="result-label" data-i18n="period_next">下次月经</div></div>
-            <div class="result-item"><div class="result-value" id="ovulation-day">--</div><div class="result-label" data-i18n="period_ovulation">排卵日</div></div>
-            <div class="result-item"><div class="result-value" id="fertile-start">--</div><div class="result-label" data-i18n="period_fertile_start">易孕期开始</div></div>
-            <div class="result-item"><div class="result-value" id="fertile-end">--</div><div class="result-label" data-i18n="period_fertile_end">易孕期结束</div></div>
-            <div class="result-item full"><div class="result-value" id="period-in">--</div><div class="result-label" data-i18n="period_in">距下次月经</div></div>
-          </div>
-          <div class="calendar-wrap">
-            <div class="calendar-header">
-              <button class="cal-nav" onclick="calNav(-1)">◀</button>
-              <span id="cal-month-label"></span>
-              <button class="cal-nav" onclick="calNav(1)">▶</button>
-            </div>
-            <div class="calendar-grid" id="cal-grid"></div>
-            <div class="legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div><span data-i18n="legend_period">经期</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div><span data-i18n="legend_ovulation">排卵日</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--accent-light)"></div><span data-i18n="legend_fertile">易孕期</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:transparent;box-shadow:0 0 0 2px var(--primary)"></div><span data-i18n="legend_today">今天</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== BMI ========== -->
-    <div class="page" id="page-bmi">
-      <div class="card">
-        <div class="card-title" data-i18n="bmi_title">BMI 体重指数计算</div>
-        <div class="card-desc" data-i18n="bmi_desc">计算身体质量指数，了解你的体重健康范围</div>
-        <div class="form-row">
-          <div class="form-group"><label data-i18n="bmi_height">身高 <span class="hint">(cm)</span></label><input type="number" id="bmi-height" placeholder="160" min="100" max="220"></div>
-          <div class="form-group"><label data-i18n="bmi_weight">体重 <span class="hint">(kg)</span></label><input type="number" id="bmi-weight" placeholder="55" min="30" max="200"></div>
-        </div>
-        <button class="btn-calc" onclick="calcBMI()" data-i18n="bmi_btn">📊 计算BMI</button>
-        <div class="result-box" id="bmi-result">
-          <div class="result-title" data-i18n="bmi_result_title">BMI 结果</div>
-          <div class="result-grid">
-            <div class="result-item full">
-              <div class="result-value" id="bmi-value">--</div>
-              <div class="result-label" data-i18n="bmi_your">你的 BMI</div>
-              <div id="bmi-tag" class="result-tag"></div>
-              <div class="bmi-scale"><div style="background:#64b5f6"></div><div style="background:#81c784"></div><div style="background:#ffb74d"></div><div style="background:#e57373"></div></div>
-              <div class="bmi-labels" id="bmi-labels"><span data-i18n="bmi_underweight">&lt;18.5 偏瘦</span><span data-i18n="bmi_normal">18.5-24 正常</span><span data-i18n="bmi_overweight">24-28 偏胖</span><span data-i18n="bmi_obese">≥28 肥胖</span></div>
-              <div class="result-bar" style="margin-top:8px"><div class="result-bar-fill" id="bmi-bar" style="width:0%;background:var(--primary)"></div></div>
-            </div>
-            <div class="result-item"><div class="result-value" id="bmi-ideal-low">--</div><div class="result-label" data-i18n="bmi_ideal_low">健康体重下限 (kg)</div></div>
-            <div class="result-item"><div class="result-value" id="bmi-ideal-high">--</div><div class="result-label" data-i18n="bmi_ideal_high">健康体重上限 (kg)</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== 预产期 ========== -->
-    <div class="page" id="page-pregnancy">
-      <div class="card">
-        <div class="card-title" data-i18n="edd_title">预产期计算</div>
-        <div class="card-desc" data-i18n="edd_desc">根据末次月经日期计算预产期和当前孕周</div>
-        <div class="form-group"><label data-i18n="edd_lmp">末次月经第一天 <span class="hint">(LMP)</span></label><input type="date" id="edd-lmp"></div>
-        <button class="btn-calc" onclick="calcEDD()" data-i18n="edd_btn">👶 计算预产期</button>
-        <div class="result-box" id="edd-result">
-          <div class="result-title" data-i18n="edd_result_title">预产期结果</div>
-          <div class="result-grid">
-            <div class="result-item full"><div class="result-value" id="edd-date">--</div><div class="result-label" data-i18n="edd_date">预产期</div></div>
-            <div class="result-item"><div class="result-value" id="edd-weeks">--</div><div class="result-label" data-i18n="edd_weeks">当前孕周</div></div>
-            <div class="result-item"><div class="result-value" id="edd-trimester">--</div><div class="result-label" data-i18n="edd_trimester">所处阶段</div></div>
-            <div class="result-item"><div class="result-value" id="edd-remaining">--</div><div class="result-label" data-i18n="edd_remaining">距离预产期</div></div>
-            <div class="result-item"><div class="result-value" id="edd-conception">--</div><div class="result-label" data-i18n="edd_conception">大约受孕日</div></div>
-          </div>
-          <div class="result-bar" style="margin-top:12px"><div class="result-bar-fill" id="edd-bar" style="width:0%;background:var(--accent)"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--text-muted);margin-top:4px" id="edd-trimester-labels"><span data-i18n="edd_t1">孕早期</span><span data-i18n="edd_t2">孕中期</span><span data-i18n="edd_t3">孕晚期</span><span data-i18n="edd_delivery">分娩</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== 每日热量 ========== -->
-    <div class="page" id="page-calorie">
-      <div class="card">
-        <div class="card-title" data-i18n="cal_title">每日热量需求计算</div>
-        <div class="card-desc" data-i18n="cal_desc">根据个人数据计算基础代谢率和每日推荐热量摄入</div>
-        <div class="form-row">
-          <div class="form-group"><label data-i18n="cal_age">年龄 <span class="hint">(岁)</span></label><input type="number" id="cal-age" placeholder="25" min="15" max="80"></div>
-          <div class="form-group"><label data-i18n="cal_height">身高 <span class="hint">(cm)</span></label><input type="number" id="cal-height" placeholder="160" min="100" max="220"></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label data-i18n="cal_weight">体重 <span class="hint">(kg)</span></label><input type="number" id="cal-weight" placeholder="55" min="30" max="200"></div>
-          <div class="form-group"><label data-i18n="cal_activity">活动水平</label>
-            <select id="cal-activity">
-              <option value="1.2" data-i18n-opt="cal_act_sedentary">久坐不动</option>
-              <option value="1.375" data-i18n-opt="cal_act_light">轻度活动 (1-3次/周)</option>
-              <option value="1.55" selected data-i18n-opt="cal_act_moderate">中度活动 (3-5次/周)</option>
-              <option value="1.725" data-i18n-opt="cal_act_active">高度活动 (6-7次/周)</option>
-              <option value="1.9" data-i18n-opt="cal_act_very">极高活动 (体力劳动)</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn-calc" onclick="calcCalorie()" data-i18n="cal_btn">🔥 计算热量</button>
-        <div class="result-box" id="cal-result">
-          <div class="result-title" data-i18n="cal_result_title">热量需求结果</div>
-          <div class="result-grid">
-            <div class="result-item full"><div class="result-value" id="cal-bmr">--</div><div class="result-label" data-i18n="cal_bmr_label">基础代谢率 (BMR) kcal/天</div></div>
-            <div class="result-item"><div class="result-value" id="cal-tdee">--</div><div class="result-label" data-i18n="cal_tdee_label">每日总消耗 (TDEE)</div></div>
-            <div class="result-item"><div class="result-value" id="cal-loss">--</div><div class="result-label" data-i18n="cal_loss_label">温和减重</div></div>
-            <div class="result-item"><div class="result-value" id="cal-gain">--</div><div class="result-label" data-i18n="cal_gain_label">健康增重</div></div>
-            <div class="result-item"><div class="result-value" id="cal-maintain">--</div><div class="result-label" data-i18n="cal_maintain_label">维持体重</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========== 饮水追踪 ========== -->
-    <div class="page" id="page-water">
-      <div class="card">
-        <div class="card-title" data-i18n="water_title">每日饮水追踪</div>
-        <div class="card-desc" data-i18n="water_desc">点击水杯记录每日饮水量，建议每日8杯（约2000ml）</div>
-        <div class="form-row">
-          <div class="form-group"><label data-i18n="water_weight">体重 <span class="hint">(kg)</span></label><input type="number" id="water-weight" placeholder="55" min="30" max="200" value="55"></div>
-          <div class="form-group"><label data-i18n="water_cup">每杯容量 <span class="hint">(ml)</span></label><input type="number" id="water-cup" placeholder="250" min="100" max="500" value="250"></div>
-        </div>
-        <div style="text-align:center;margin:16px 0">
-          <div style="font-size:2rem;font-weight:700;color:var(--primary)" id="water-ml">0 ml</div>
-          <div style="font-size:0.82rem;color:var(--text-muted)" id="water-target"></div>
-          <div class="result-bar" style="max-width:280px;margin:10px auto 0"><div class="result-bar-fill" id="water-bar" style="width:0%;background:#64b5f6"></div></div>
-        </div>
-        <div class="water-glasses" id="water-glasses"></div>
-        <button class="btn-calc" onclick="resetWater()" style="background:linear-gradient(135deg,#64b5f6,#42a5f5)" data-i18n="water_reset">🔄 重置今日</button>
-      </div>
-    </div>
-
-    <!-- ========== 排卵计算 ========== -->
-    <div class="page" id="page-ovulation">
-      <div class="card">
-        <div class="card-title" data-i18n="ovu_title">排卵日计算</div>
-        <div class="card-desc" data-i18n="ovu_desc">帮助预测排卵日和最佳受孕时间窗口</div>
-        <div class="form-group"><label data-i18n="ovu_lmp">末次月经第一天</label><input type="date" id="ovu-lmp"></div>
-        <div class="form-group"><label data-i18n="ovu_cycle">平均月经周期 <span class="hint">(天)</span></label><input type="number" id="ovu-cycle" placeholder="28" min="20" max="45" value="28"></div>
-        <button class="btn-calc" onclick="calcOvulation()" data-i18n="ovu_btn">🥚 计算排卵日</button>
-        <div class="result-box" id="ovu-result">
-          <div class="result-title" data-i18n="ovu_result_title">排卵预测</div>
-          <div class="result-grid">
-            <div class="result-item full"><div class="result-value" id="ovu-day">--</div><div class="result-label" data-i18n="ovu_day_label">预计排卵日</div></div>
-            <div class="result-item"><div class="result-value" id="ovu-fertile-start">--</div><div class="result-label" data-i18n="ovu_fertile_start_label">最佳受孕开始</div></div>
-            <div class="result-item"><div class="result-value" id="ovu-fertile-end">--</div><div class="result-label" data-i18n="ovu_fertile_end_label">最佳受孕结束</div></div>
-            <div class="result-item full"><div class="result-value" style="font-size:0.9rem" id="ovu-tip">--</div><div class="result-label" data-i18n="ovu_tip_label">小贴士</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- APP 下载区 -->
-    <div class="app-download-section">
-    <img src="app-cover.png" alt="APP封面" class="app-cover-img" loading="lazy">
-    <div class="app-download-info">
-    <div class="app-download-title" data-i18n="download_title">📱 下载 APP</div>
-    <div class="app-download-desc" data-i18n="download_desc">随时随地使用，离线也能用！</div>
-    <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" class="btn-download" download data-i18n="download_btn">⬇️ 下载 Android APK</a>
-    <div class="download-hint" data-i18n="download_hint">Android 5.0+ · 允许"未知来源"安装</div>
-    </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-    <div class="footer-links">
-    <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" download data-i18n="footer_link_download">⬇️ 下载APP</a>
-    <a href="javascript:void(0)" onclick="openModal('terms')" data-i18n="footer_link_terms">📜 使用条款</a>
-    <a href="javascript:void(0)" onclick="openModal('disclaimer')" data-i18n="footer_link_disclaimer">⚠️ 免责声明</a>
-    <a href="javascript:void(0)" onclick="openModal('contact')" data-i18n="footer_link_contact">📬 联系方式</a>
-    </div>
-      <div class="footer-brand" data-i18n="footer_brand">🌸 女性健康计算器 — 了解身体，关爱自己</div>
-      <div data-i18n="footer_copyright">© 2026 Women's Health Calculator. All rights reserved.</div>
-    </div>
-
-  </main>
-</div>
-
-<!-- Bottom Navigation Bar -->
-<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
-  <button class="nav-item active" onclick="switchTab('period')" data-tab="period">
-    <span class="nav-icon">🩸</span><span class="nav-label" data-i18n="tab_period_short">经期</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('bmi')" data-tab="bmi">
-    <span class="nav-icon">⚖️</span><span class="nav-label" data-i18n="tab_bmi_short">BMI</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('pregnancy')" data-tab="pregnancy">
-    <span class="nav-icon">🤰</span><span class="nav-label" data-i18n="tab_pregnancy_short">预产期</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('calorie')" data-tab="calorie">
-    <span class="nav-icon">🔥</span><span class="nav-label" data-i18n="tab_calorie_short">热量</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('water')" data-tab="water">
-    <span class="nav-icon">💧</span><span class="nav-label" data-i18n="tab_water_short">饮水</span>
-  </button>
-  <button class="nav-item" onclick="switchTab('ovulation')" data-tab="ovulation">
-    <span class="nav-icon">🥚</span><span class="nav-label" data-i18n="tab_ovulation_short">排卵</span>
-  </button>
+<nav class="tabs" role="tablist" aria-label="Calculator tabs">
+ <button class="tab-btn active" onclick="switchTab('period')" role="tab" aria-selected="true" aria-controls="tab-period" data-i18n="tab_period">🩸 经期追踪</button>
+ <button class="tab-btn" onclick="switchTab('bmi')" role="tab" aria-selected="false" aria-controls="tab-bmi" data-i18n="tab_bmi">⚖️ BMI计算</button>
+ <button class="tab-btn" onclick="switchTab('pregnancy')" role="tab" aria-selected="false" aria-controls="tab-pregnancy" data-i18n="tab_pregnancy">🤰 预产期</button>
+ <button class="tab-btn" onclick="switchTab('calorie')" role="tab" aria-selected="false" aria-controls="tab-calorie" data-i18n="tab_calorie">🔥 每日热量</button>
+ <button class="tab-btn" onclick="switchTab('water')" role="tab" aria-selected="false" aria-controls="tab-water" data-i18n="tab_water">💧 饮水追踪</button>
+ <button class="tab-btn" onclick="switchTab('ovulation')" role="tab" aria-selected="false" aria-controls="tab-ovulation" data-i18n="tab_ovulation">🥚 排卵计算</button>
 </nav>
 
-<!-- Modals (Bottom Sheet style) -->
+<main class="container" role="main">
+
+ <!-- ========== 经期追踪 ========== -->
+ <div class="calculator-card active" id="tab-period" role="tabpanel" aria-label="Period Tracker">
+ <div class="card-title" data-i18n="period_title">经期追踪 & 预测</div>
+ <div class="card-desc" data-i18n="period_desc">输入你的经期信息，预测下次月经、排卵日和易孕期</div>
+
+ <div class="form-group">
+ <label data-i18n="period_lmp">末次月经第一天 <span class="hint">(LMP)</span></label>
+ <input type="date" id="lmp-date">
+ </div>
+ <div class="form-row">
+ <div class="form-group">
+ <label data-i18n="period_cycle">月经周期 <span class="hint">(天)</span></label>
+ <input type="number" id="cycle-length" placeholder="28" min="20" max="45" value="28">
+ </div>
+ <div class="form-group">
+ <label data-i18n="period_length">经期天数 <span class="hint">(天)</span></label>
+ <input type="number" id="period-length" placeholder="5" min="2" max="10" value="5">
+ </div>
+ </div>
+ <button class="btn-calc" onclick="calcPeriod()" data-i18n="period_btn">📅 计算预测</button>
+
+ <div class="result-box" id="period-result">
+ <div class="result-title" data-i18n="period_result_title">预测结果</div>
+ <div class="result-grid">
+ <div class="result-item">
+ <div class="result-value" id="next-period">--</div>
+ <div class="result-label" data-i18n="period_next">下次月经</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="ovulation-day">--</div>
+ <div class="result-label" data-i18n="period_ovulation">排卵日</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="fertile-start">--</div>
+ <div class="result-label" data-i18n="period_fertile_start">易孕期开始</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="fertile-end">--</div>
+ <div class="result-label" data-i18n="period_fertile_end">易孕期结束</div>
+ </div>
+ <div class="result-item full">
+ <div class="result-value" id="period-in">--</div>
+ <div class="result-label" data-i18n="period_in">距下次月经</div>
+ </div>
+ </div>
+
+ <div class="calendar-wrap">
+ <div class="calendar-header">
+ <button class="cal-nav" onclick="calNav(-1)">◀</button>
+ <span id="cal-month-label"></span>
+ <button class="cal-nav" onclick="calNav(1)">▶</button>
+ </div>
+ <div class="calendar-grid" id="cal-grid"></div>
+ <div class="legend">
+ <div class="legend-item"><div class="legend-dot" style="background:var(--primary)"></div><span data-i18n="legend_period">经期</span></div>
+ <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div><span data-i18n="legend_ovulation">排卵日</span></div>
+ <div class="legend-item"><div class="legend-dot" style="background:var(--accent-light)"></div><span data-i18n="legend_fertile">易孕期</span></div>
+ <div class="legend-item"><div class="legend-dot" style="background:transparent;box-shadow:0 0 0 2px var(--primary)"></div><span data-i18n="legend_today">今天</span></div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ========== BMI 计算 ========== -->
+ <div class="calculator-card" id="tab-bmi" role="tabpanel" aria-label="BMI Calculator">
+ <div class="card-title" data-i18n="bmi_title">BMI 体重指数计算</div>
+ <div class="card-desc" data-i18n="bmi_desc">计算身体质量指数，了解你的体重健康范围</div>
+
+ <div class="form-row">
+ <div class="form-group">
+ <label data-i18n="bmi_height">身高 <span class="hint">(cm)</span></label>
+ <input type="number" id="bmi-height" placeholder="160" min="100" max="220">
+ </div>
+ <div class="form-group">
+ <label data-i18n="bmi_weight">体重 <span class="hint">(kg)</span></label>
+ <input type="number" id="bmi-weight" placeholder="55" min="30" max="200">
+ </div>
+ </div>
+ <button class="btn-calc" onclick="calcBMI()" data-i18n="bmi_btn">📊 计算BMI</button>
+
+ <div class="result-box" id="bmi-result">
+ <div class="result-title" data-i18n="bmi_result_title">BMI 结果</div>
+ <div class="result-grid">
+ <div class="result-item full">
+ <div class="result-value" id="bmi-value">--</div>
+ <div class="result-label" data-i18n="bmi_your">你的 BMI</div>
+ <div id="bmi-tag" class="result-tag"></div>
+ <div class="bmi-scale">
+ <div style="background:#64b5f6"></div>
+ <div style="background:#81c784"></div>
+ <div style="background:#ffb74d"></div>
+ <div style="background:#e57373"></div>
+ </div>
+ <div class="bmi-labels" id="bmi-labels">
+ <span data-i18n="bmi_underweight">&lt;18.5 偏瘦</span>
+ <span data-i18n="bmi_normal">18.5-24 正常</span>
+ <span data-i18n="bmi_overweight">24-28 偏胖</span>
+ <span data-i18n="bmi_obese">&ge;28 肥胖</span>
+ </div>
+ <div class="result-bar" style="margin-top:0.8rem">
+ <div class="result-bar-fill" id="bmi-bar" style="width:0%;background:var(--primary)"></div>
+ </div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="bmi-ideal-low">--</div>
+ <div class="result-label" data-i18n="bmi_ideal_low">健康体重下限 (kg)</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="bmi-ideal-high">--</div>
+ <div class="result-label" data-i18n="bmi_ideal_high">健康体重上限 (kg)</div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ========== 预产期 ========== -->
+ <div class="calculator-card" id="tab-pregnancy" role="tabpanel" aria-label="Due Date Calculator">
+ <div class="card-title" data-i18n="edd_title">预产期计算</div>
+ <div class="card-desc" data-i18n="edd_desc">根据末次月经日期计算预产期和当前孕周</div>
+
+ <div class="form-group">
+ <label data-i18n="edd_lmp">末次月经第一天 <span class="hint">(LMP)</span></label>
+ <input type="date" id="edd-lmp">
+ </div>
+ <button class="btn-calc" onclick="calcEDD()" data-i18n="edd_btn">👶 计算预产期</button>
+
+ <div class="result-box" id="edd-result">
+ <div class="result-title" data-i18n="edd_result_title">预产期结果</div>
+ <div class="result-grid">
+ <div class="result-item full">
+ <div class="result-value" id="edd-date">--</div>
+ <div class="result-label" data-i18n="edd_date">预产期</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="edd-weeks">--</div>
+ <div class="result-label" data-i18n="edd_weeks">当前孕周</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="edd-trimester">--</div>
+ <div class="result-label" data-i18n="edd_trimester">所处阶段</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="edd-remaining">--</div>
+ <div class="result-label" data-i18n="edd_remaining">距离预产期</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="edd-conception">--</div>
+ <div class="result-label" data-i18n="edd_conception">大约受孕日</div>
+ </div>
+ </div>
+ <div class="result-bar" style="margin-top:1rem">
+ <div class="result-bar-fill" id="edd-bar" style="width:0%;background:var(--accent)"></div>
+ </div>
+ <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--text-muted);margin-top:0.3rem" id="edd-trimester-labels">
+ <span data-i18n="edd_t1">孕早期</span><span data-i18n="edd_t2">孕中期</span><span data-i18n="edd_t3">孕晚期</span><span data-i18n="edd_delivery">分娩</span>
+ </div>
+ </div>
+ </div>
+
+ <!-- ========== 每日热量 ========== -->
+ <div class="calculator-card" id="tab-calorie" role="tabpanel" aria-label="Calorie Calculator">
+ <div class="card-title" data-i18n="cal_title">每日热量需求计算</div>
+ <div class="card-desc" data-i18n="cal_desc">根据个人数据计算基础代谢率和每日推荐热量摄入</div>
+
+ <div class="form-row">
+ <div class="form-group">
+ <label data-i18n="cal_age">年龄 <span class="hint">(岁)</span></label>
+ <input type="number" id="cal-age" placeholder="25" min="15" max="80">
+ </div>
+ <div class="form-group">
+ <label data-i18n="cal_height">身高 <span class="hint">(cm)</span></label>
+ <input type="number" id="cal-height" placeholder="160" min="100" max="220">
+ </div>
+ </div>
+ <div class="form-row">
+ <div class="form-group">
+ <label data-i18n="cal_weight">体重 <span class="hint">(kg)</span></label>
+ <input type="number" id="cal-weight" placeholder="55" min="30" max="200">
+ </div>
+ <div class="form-group">
+ <label data-i18n="cal_activity">活动水平</label>
+ <select id="cal-activity">
+ <option value="1.2" data-i18n-opt="cal_act_sedentary">久坐不动</option>
+ <option value="1.375" data-i18n-opt="cal_act_light">轻度活动 (1-3次/周)</option>
+ <option value="1.55" selected data-i18n-opt="cal_act_moderate">中度活动 (3-5次/周)</option>
+ <option value="1.725" data-i18n-opt="cal_act_active">高度活动 (6-7次/周)</option>
+ <option value="1.9" data-i18n-opt="cal_act_very">极高活动 (体力劳动)</option>
+ </select>
+ </div>
+ </div>
+ <button class="btn-calc" onclick="calcCalorie()" data-i18n="cal_btn">🔥 计算热量</button>
+
+ <div class="result-box" id="cal-result">
+ <div class="result-title" data-i18n="cal_result_title">热量需求结果</div>
+ <div class="result-grid">
+ <div class="result-item full">
+ <div class="result-value" id="cal-bmr">--</div>
+ <div class="result-label" data-i18n="cal_bmr_label">基础代谢率 (BMR) kcal/天</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="cal-tdee">--</div>
+ <div class="result-label" data-i18n="cal_tdee_label">每日总消耗 (TDEE)</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="cal-loss">--</div>
+ <div class="result-label" data-i18n="cal_loss_label">温和减重</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="cal-gain">--</div>
+ <div class="result-label" data-i18n="cal_gain_label">健康增重</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="cal-maintain">--</div>
+ <div class="result-label" data-i18n="cal_maintain_label">维持体重</div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- ========== 饮水追踪 ========== -->
+ <div class="calculator-card" id="tab-water" role="tabpanel" aria-label="Water Tracker">
+ <div class="card-title" data-i18n="water_title">每日饮水追踪</div>
+ <div class="card-desc" data-i18n="water_desc">点击水杯记录每日饮水量，建议每日8杯（约2000ml）</div>
+
+ <div class="form-row">
+ <div class="form-group">
+ <label data-i18n="water_weight">体重 <span class="hint">(kg)</span></label>
+ <input type="number" id="water-weight" placeholder="55" min="30" max="200" value="55">
+ </div>
+ <div class="form-group">
+ <label data-i18n="water_cup">每杯容量 <span class="hint">(ml)</span></label>
+ <input type="number" id="water-cup" placeholder="250" min="100" max="500" value="250">
+ </div>
+ </div>
+
+ <div style="text-align:center;margin:1rem 0">
+ <div style="font-size:2rem;font-weight:700;color:var(--primary)" id="water-ml">0 ml</div>
+ <div style="font-size:0.85rem;color:var(--text-muted)" id="water-target"></div>
+ <div class="result-bar" style="max-width:300px;margin:0.8rem auto 0">
+ <div class="result-bar-fill" id="water-bar" style="width:0%;background:#64b5f6"></div>
+ </div>
+ </div>
+
+ <div class="water-glasses" id="water-glasses"></div>
+
+ <div style="text-align:center;margin-top:1rem">
+ <button class="btn-calc" onclick="resetWater()" style="background:linear-gradient(135deg,#64b5f6,#42a5f5)" data-i18n="water_reset">🔄 重置今日</button>
+ </div>
+ </div>
+
+ <!-- ========== 排卵计算 ========== -->
+ <div class="calculator-card" id="tab-ovulation" role="tabpanel" aria-label="Ovulation Calculator">
+ <div class="card-title" data-i18n="ovu_title">排卵日计算</div>
+ <div class="card-desc" data-i18n="ovu_desc">帮助预测排卵日和最佳受孕时间窗口</div>
+
+ <div class="form-group">
+ <label data-i18n="ovu_lmp">末次月经第一天</label>
+ <input type="date" id="ovu-lmp">
+ </div>
+ <div class="form-group">
+ <label data-i18n="ovu_cycle">平均月经周期 <span class="hint">(天)</span></label>
+ <input type="number" id="ovu-cycle" placeholder="28" min="20" max="45" value="28">
+ </div>
+ <button class="btn-calc" onclick="calcOvulation()" data-i18n="ovu_btn">🥚 计算排卵日</button>
+
+ <div class="result-box" id="ovu-result">
+ <div class="result-title" data-i18n="ovu_result_title">排卵预测</div>
+ <div class="result-grid">
+ <div class="result-item full">
+ <div class="result-value" id="ovu-day">--</div>
+ <div class="result-label" data-i18n="ovu_day_label">预计排卵日</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="ovu-fertile-start">--</div>
+ <div class="result-label" data-i18n="ovu_fertile_start_label">最佳受孕开始</div>
+ </div>
+ <div class="result-item">
+ <div class="result-value" id="ovu-fertile-end">--</div>
+ <div class="result-label" data-i18n="ovu_fertile_end_label">最佳受孕结束</div>
+ </div>
+ <div class="result-item full">
+ <div class="result-value" style="font-size:1rem" id="ovu-tip">--</div>
+ <div class="result-label" data-i18n="ovu_tip_label">小贴士</div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+</main>
+
+<!-- ========== APP 下载区 ========== -->
+<div class="app-download-section" id="app-download">
+ <div class="app-download-card">
+ <img src="app-cover.png" alt="女性健康计算器 APP" class="app-cover-img" loading="lazy">
+ <div class="app-download-info">
+ <h2 data-i18n="download_title">📱 下载 APP</h2>
+ <p data-i18n="download_desc">随时随地使用女性健康计算器，无需网络连接，离线也能用！</p>
+ <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" class="btn-download" download>
+ <span data-i18n="download_btn">⬇️ 下载 Android APK</span>
+ </a>
+ <p class="download-hint" data-i18n="download_hint">适用于 Android 5.0+ 设备 · 安装时请允许"未知来源"</p>
+ </div>
+ </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+ <div class="footer-links">
+ <a href="https://github.com/vicvv666/womenshealth/raw/main/womens-health-calculator-debug.apk" download data-i18n="footer_link_download">⬇️ 下载APP</a>
+ <a href="javascript:void(0)" onclick="openModal('terms')" data-i18n="footer_link_terms">📜 使用条款</a>
+ <a href="javascript:void(0)" onclick="openModal('disclaimer')" data-i18n="footer_link_disclaimer">⚠️ 免责声明</a>
+ <a href="javascript:void(0)" onclick="openModal('contact')" data-i18n="footer_link_contact">📬 联系方式</a>
+ </div>
+ <div class="footer-brand" data-i18n="footer_brand">🌸 女性健康计算器 — 了解身体，关爱自己</div>
+ <div data-i18n="footer_copyright">© 2026 Women's Health Calculator. All rights reserved.</div>
+</footer>
+
+<!-- Modal: Terms -->
 <div class="modal-overlay" id="modal-terms" onclick="closeModalOutside(event,'terms')">
-  <div class="modal-box"><div class="modal-handle"></div>
-    <h3 data-i18n="footer_terms_title">📜 使用条款</h3>
-    <div class="modal-section"><ul>
-      <li data-i18n="footer_terms_1">本工具仅供健康参考用途，不构成任何医学诊断或治疗建议。</li>
-      <li data-i18n="footer_terms_2">计算结果基于通用公式估算，个体差异可能导致结果不准确。</li>
-      <li data-i18n="footer_terms_3">使用者应根据自身情况咨询专业医疗人员，切勿仅依赖本工具做出健康决策。</li>
-      <li data-i18n="footer_terms_4">本网站不对使用本工具所产生的任何后果承担责任。</li>
-    </ul></div>
+ <div class="modal-box">
+  <button class="modal-close" onclick="closeModal('terms')">✕</button>
+  <h3 data-i18n="footer_terms_title">📜 使用条款</h3>
+  <div class="modal-section">
+   <ul>
+    <li data-i18n="footer_terms_1">本工具仅供健康参考用途，不构成任何医学诊断或治疗建议。</li>
+    <li data-i18n="footer_terms_2">计算结果基于通用公式估算，个体差异可能导致结果不准确。</li>
+    <li data-i18n="footer_terms_3">使用者应根据自身情况咨询专业医疗人员，切勿仅依赖本工具做出健康决策。</li>
+    <li data-i18n="footer_terms_4">本网站不对使用本工具所产生的任何后果承担责任。</li>
+   </ul>
   </div>
+ </div>
 </div>
+
+<!-- Modal: Disclaimer -->
 <div class="modal-overlay" id="modal-disclaimer" onclick="closeModalOutside(event,'disclaimer')">
-  <div class="modal-box"><div class="modal-handle"></div>
-    <h3 data-i18n="footer_disclaimer_title">⚠️ 免责声明</h3>
-    <div class="modal-section"><ul>
-      <li data-i18n="footer_disclaimer_1">本网站所有计算工具均基于公开医学公式，仅供参考。</li>
-      <li data-i18n="footer_disclaimer_2">经期预测、排卵日计算等结果可能因个人生理差异而有所不同。</li>
-      <li data-i18n="footer_disclaimer_3">BMI、热量等计算不适用于孕妇、哺乳期女性及特殊疾病患者。</li>
-      <li data-i18n="footer_disclaimer_4">如有任何健康问题，请务必咨询持证医生或其他专业医疗机构。</li>
-    </ul></div>
+ <div class="modal-box">
+  <button class="modal-close" onclick="closeModal('disclaimer')">✕</button>
+  <h3 data-i18n="footer_disclaimer_title">⚠️ 免责声明</h3>
+  <div class="modal-section">
+   <ul>
+    <li data-i18n="footer_disclaimer_1">本网站所有计算工具均基于公开医学公式，仅供参考。</li>
+    <li data-i18n="footer_disclaimer_2">经期预测、排卵日计算等结果可能因个人生理差异而有所不同。</li>
+    <li data-i18n="footer_disclaimer_3">BMI、热量等计算不适用于孕妇、哺乳期女性及特殊疾病患者。</li>
+    <li data-i18n="footer_disclaimer_4">如有任何健康问题，请务必咨询持证医生或其他专业医疗机构。</li>
+   </ul>
   </div>
+ </div>
 </div>
+
+<!-- Modal: Contact -->
 <div class="modal-overlay" id="modal-contact" onclick="closeModalOutside(event,'contact')">
-  <div class="modal-box"><div class="modal-handle"></div>
-    <h3 data-i18n="footer_contact_title">📬 联系方式</h3>
-    <div class="modal-section">
-      <p data-i18n="footer_contact_desc">如有问题、建议或反馈，欢迎通过以下方式联系我们：</p>
-      <p style="margin-top:8px;font-size:1rem;font-weight:600">📧 <a href="mailto:vichoo2020@gmail.com">vichoo2020@gmail.com</a></p>
-      <p style="margin-top:8px" data-i18n="footer_contact_note">我们将在合理时间内回复您的来信。</p>
-    </div>
+ <div class="modal-box">
+  <button class="modal-close" onclick="closeModal('contact')">✕</button>
+  <h3 data-i18n="footer_contact_title">📬 联系方式</h3>
+  <div class="modal-section">
+   <p data-i18n="footer_contact_desc">如有问题、建议或反馈，欢迎通过以下方式联系我们：</p>
+   <p style="margin-top:0.8rem;font-size:1rem;font-weight:600">📧 <a href="mailto:vichoo2020@gmail.com">vichoo2020@gmail.com</a></p>
+   <p style="margin-top:0.8rem" data-i18n="footer_contact_note">我们将在合理时间内回复您的来信。</p>
   </div>
+ </div>
 </div>
 
 <script>
 // ===== i18n System =====
 const i18n = {
-'zh-CN': {
+ 'zh-CN': {
   header_title: '🌸 女性健康计算器',
-  tab_period_short: '经期', tab_bmi_short: 'BMI', tab_pregnancy_short: '预产期', tab_calorie_short: '热量', tab_water_short: '饮水', tab_ovulation_short: '排卵',
-  period_title: '经期追踪 & 预测', period_desc: '输入你的经期信息，预测下次月经、排卵日和易孕期',
-  period_lmp: '末次月经第一天 <span class="hint">(LMP)</span>', period_cycle: '月经周期 <span class="hint">(天)</span>', period_length: '经期天数 <span class="hint">(天)</span>',
-  period_btn: '📅 计算预测', period_result_title: '预测结果', period_next: '下次月经', period_ovulation: '排卵日',
-  period_fertile_start: '易孕期开始', period_fertile_end: '易孕期结束', period_in: '距下次月经',
-  legend_period: '经期', legend_ovulation: '排卵日', legend_fertile: '易孕期', legend_today: '今天',
-  bmi_title: 'BMI 体重指数计算', bmi_desc: '计算身体质量指数，了解你的体重健康范围',
-  bmi_height: '身高 <span class="hint">(cm)</span>', bmi_weight: '体重 <span class="hint">(kg)</span>', bmi_btn: '📊 计算BMI',
-  bmi_result_title: 'BMI 结果', bmi_your: '你的 BMI', bmi_underweight: '<18.5 偏瘦', bmi_normal: '18.5-24 正常', bmi_overweight: '24-28 偏胖', bmi_obese: '≥28 肥胖',
-  bmi_ideal_low: '健康体重下限 (kg)', bmi_ideal_high: '健康体重上限 (kg)',
-  bmi_tag_underweight: '偏瘦', bmi_tag_normal: '正常 ✓', bmi_tag_overweight: '偏胖', bmi_tag_obese: '肥胖',
-  edd_title: '预产期计算', edd_desc: '根据末次月经日期计算预产期和当前孕周',
-  edd_lmp: '末次月经第一天 <span class="hint">(LMP)</span>', edd_btn: '👶 计算预产期',
-  edd_result_title: '预产期结果', edd_date: '预产期', edd_weeks: '当前孕周', edd_trimester: '所处阶段', edd_remaining: '距离预产期', edd_conception: '大约受孕日',
-  edd_t1: '孕早期', edd_t2: '孕中期', edd_t3: '孕晚期', edd_delivery: '分娩',
-  edd_t1_name: '孕早期', edd_t2_name: '孕中期', edd_t3_name: '孕晚期', edd_arrived: '已到/已过',
-  cal_title: '每日热量需求计算', cal_desc: '根据个人数据计算基础代谢率和每日推荐热量摄入',
-  cal_age: '年龄 <span class="hint">(岁)</span>', cal_height: '身高 <span class="hint">(cm)</span>', cal_weight: '体重 <span class="hint">(kg)</span>', cal_activity: '活动水平',
-  cal_act_sedentary: '久坐不动', cal_act_light: '轻度活动 (1-3次/周)', cal_act_moderate: '中度活动 (3-5次/周)', cal_act_active: '高度活动 (6-7次/周)', cal_act_very: '极高活动 (体力劳动)',
-  cal_btn: '🔥 计算热量', cal_result_title: '热量需求结果', cal_bmr_label: '基础代谢率 (BMR) kcal/天', cal_tdee_label: '每日总消耗 (TDEE)', cal_loss_label: '温和减重', cal_gain_label: '健康增重', cal_maintain_label: '维持体重',
-  water_title: '每日饮水追踪', water_desc: '点击水杯记录每日饮水量，建议每日8杯（约2000ml）',
-  water_weight: '体重 <span class="hint">(kg)</span>', water_cup: '每杯容量 <span class="hint">(ml)</span>', water_reset: '🔄 重置今日', water_target: '目标', water_cups: '杯',
-  ovu_title: '排卵日计算', ovu_desc: '帮助预测排卵日和最佳受孕时间窗口', ovu_lmp: '末次月经第一天', ovu_cycle: '平均月经周期 <span class="hint">(天)</span>',
-  ovu_btn: '🥚 计算排卵日', ovu_result_title: '排卵预测', ovu_day_label: '预计排卵日', ovu_fertile_start_label: '最佳受孕开始', ovu_fertile_end_label: '最佳受孕结束', ovu_tip_label: '小贴士',
-  footer_link_terms: '📜 使用条款', footer_link_disclaimer: '⚠️ 免责声明', footer_link_contact: '📬 联系方式',
-  footer_terms_title: '📜 使用条款', footer_terms_1: '本工具仅供健康参考用途，不构成任何医学诊断或治疗建议。', footer_terms_2: '计算结果基于通用公式估算，个体差异可能导致结果不准确。', footer_terms_3: '使用者应根据自身情况咨询专业医疗人员，切勿仅依赖本工具做出健康决策。', footer_terms_4: '本网站不对使用本工具所产生的任何后果承担责任。',
-  footer_disclaimer_title: '⚠️ 免责声明', footer_disclaimer_1: '本网站所有计算工具均基于公开医学公式，仅供参考。', footer_disclaimer_2: '经期预测、排卵日计算等结果可能因个人生理差异而有所不同。', footer_disclaimer_3: 'BMI、热量等计算不适用于孕妇、哺乳期女性及特殊疾病患者。', footer_disclaimer_4: '如有任何健康问题，请务必咨询持证医生或其他专业医疗机构。',
-  footer_contact_title: '📬 联系方式', footer_contact_desc: '如有问题、建议或反馈，欢迎通过以下方式联系我们：', footer_contact_note: '我们将在合理时间内回复您的来信。',
-  footer_brand: '🌸 女性健康计算器 — 了解身体，关爱自己', footer_copyright: '© 2026 女性健康计算器 保留所有权利。',
-  footer_link_download: '⬇️ 下载APP', download_title: '📱 下载 APP', download_desc: '随时随地使用，离线也能用！', download_btn: '⬇️ 下载 Android APK', download_hint: 'Android 5.0+ · 允许"未知来源"安装',
-  alert_select_lmp: '请选择末次月经日期',alert_input_hw: '请输入身高和体重', alert_fill_all: '请填写完整信息',
-  days_later: '天后', arrived: '已到', days: '天', week: '周', day: '天', month: '月', date_suffix: '日',
-  day_names: ['日','一','二','三','四','五','六'], cal_month_format: '{y}年{m}月',
-  ovu_tip_future: '距排卵日还有 {d} 天，在易孕期内同房可提高受孕机会。', ovu_tip_today: '今天就是排卵日！是受孕最佳时机。', ovu_tip_past: '排卵日已过 {d} 天，下个周期将在约 {r} 天后。',
-},
-'zh-Hant': {
+  header_desc: '了解身体，关爱自己 — 多功能健康管理工具',
+  tab_period: '🩸 经期追踪',
+  tab_bmi: '⚖️ BMI计算',
+  tab_pregnancy: '🤰 预产期',
+  tab_calorie: '🔥 每日热量',
+  tab_water: '💧 饮水追踪',
+  tab_ovulation: '🥚 排卵计算',
+  period_title: '经期追踪 & 预测',
+  period_desc: '输入你的经期信息，预测下次月经、排卵日和易孕期',
+  period_lmp: '末次月经第一天 <span class="hint">(LMP)</span>',
+  period_cycle: '月经周期 <span class="hint">(天)</span>',
+  period_length: '经期天数 <span class="hint">(天)</span>',
+  period_btn: '📅 计算预测',
+  period_result_title: '预测结果',
+  period_next: '下次月经',
+  period_ovulation: '排卵日',
+  period_fertile_start: '易孕期开始',
+  period_fertile_end: '易孕期结束',
+  period_in: '距下次月经',
+  legend_period: '经期',
+  legend_ovulation: '排卵日',
+  legend_fertile: '易孕期',
+  legend_today: '今天',
+  bmi_title: 'BMI 体重指数计算',
+  bmi_desc: '计算身体质量指数，了解你的体重健康范围',
+  bmi_height: '身高 <span class="hint">(cm)</span>',
+  bmi_weight: '体重 <span class="hint">(kg)</span>',
+  bmi_btn: '📊 计算BMI',
+  bmi_result_title: 'BMI 结果',
+  bmi_your: '你的 BMI',
+  bmi_underweight: '<18.5 偏瘦',
+  bmi_normal: '18.5-24 正常',
+  bmi_overweight: '24-28 偏胖',
+  bmi_obese: '≥28 肥胖',
+  bmi_ideal_low: '健康体重下限 (kg)',
+  bmi_ideal_high: '健康体重上限 (kg)',
+  bmi_tag_underweight: '偏瘦',
+  bmi_tag_normal: '正常 ✓',
+  bmi_tag_overweight: '偏胖',
+  bmi_tag_obese: '肥胖',
+  edd_title: '预产期计算',
+  edd_desc: '根据末次月经日期计算预产期和当前孕周',
+  edd_lmp: '末次月经第一天 <span class="hint">(LMP)</span>',
+  edd_btn: '👶 计算预产期',
+  edd_result_title: '预产期结果',
+  edd_date: '预产期',
+  edd_weeks: '当前孕周',
+  edd_trimester: '所处阶段',
+  edd_remaining: '距离预产期',
+  edd_conception: '大约受孕日',
+  edd_t1: '孕早期',
+  edd_t2: '孕中期',
+  edd_t3: '孕晚期',
+  edd_delivery: '分娩',
+  edd_t1_name: '孕早期',
+  edd_t2_name: '孕中期',
+  edd_t3_name: '孕晚期',
+  edd_arrived: '已到/已过',
+  cal_title: '每日热量需求计算',
+  cal_desc: '根据个人数据计算基础代谢率和每日推荐热量摄入',
+  cal_age: '年龄 <span class="hint">(岁)</span>',
+  cal_height: '身高 <span class="hint">(cm)</span>',
+  cal_weight: '体重 <span class="hint">(kg)</span>',
+  cal_activity: '活动水平',
+  cal_act_sedentary: '久坐不动',
+  cal_act_light: '轻度活动 (1-3次/周)',
+  cal_act_moderate: '中度活动 (3-5次/周)',
+  cal_act_active: '高度活动 (6-7次/周)',
+  cal_act_very: '极高活动 (体力劳动)',
+  cal_btn: '🔥 计算热量',
+  cal_result_title: '热量需求结果',
+  cal_bmr_label: '基础代谢率 (BMR) kcal/天',
+  cal_tdee_label: '每日总消耗 (TDEE)',
+  cal_loss_label: '温和减重',
+  cal_gain_label: '健康增重',
+  cal_maintain_label: '维持体重',
+  water_title: '每日饮水追踪',
+  water_desc: '点击水杯记录每日饮水量，建议每日8杯（约2000ml）',
+  water_weight: '体重 <span class="hint">(kg)</span>',
+  water_cup: '每杯容量 <span class="hint">(ml)</span>',
+  water_reset: '🔄 重置今日',
+  water_target: '目标',
+  water_cups: '杯',
+  ovu_title: '排卵日计算',
+  ovu_desc: '帮助预测排卵日和最佳受孕时间窗口',
+  ovu_lmp: '末次月经第一天',
+  ovu_cycle: '平均月经周期 <span class="hint">(天)</span>',
+  ovu_btn: '🥚 计算排卵日',
+  ovu_result_title: '排卵预测',
+  ovu_day_label: '预计排卵日',
+  ovu_fertile_start_label: '最佳受孕开始',
+  ovu_fertile_end_label: '最佳受孕结束',
+  ovu_tip_label: '小贴士',
+  footer: '🌸 女性健康计算器 — 仅供参考，不构成医学建议。如有健康问题请咨询专业医生。',
+  footer_terms_title: '📜 使用条款',
+  footer_link_terms: '📜 使用条款',
+  footer_link_disclaimer: '⚠️ 免责声明',
+  footer_link_contact: '📬 联系方式',
+  footer_terms_1: '本工具仅供健康参考用途，不构成任何医学诊断或治疗建议。',
+  footer_terms_2: '计算结果基于通用公式估算，个体差异可能导致结果不准确。',
+  footer_terms_3: '使用者应根据自身情况咨询专业医疗人员，切勿仅依赖本工具做出健康决策。',
+  footer_terms_4: '本网站不对使用本工具所产生的任何后果承担责任。',
+  footer_disclaimer_title: '⚠️ 免责声明',
+  footer_disclaimer_1: '本网站所有计算工具均基于公开医学公式，仅供参考。',
+  footer_disclaimer_2: '经期预测、排卵日计算等结果可能因个人生理差异而有所不同。',
+  footer_disclaimer_3: 'BMI、热量等计算不适用于孕妇、哺乳期女性及特殊疾病患者。',
+  footer_disclaimer_4: '如有任何健康问题，请务必咨询持证医生或其他专业医疗机构。',
+  footer_contact_title: '📬 联系方式',
+  footer_contact_desc: '如有问题、建议或反馈，欢迎通过以下方式联系我们：',
+  footer_contact_note: '我们将在合理时间内回复您的来信。',
+  footer_brand: '🌸 女性健康计算器 — 了解身体，关爱自己',
+ footer_copyright: '© 2026 女性健康计算器 保留所有权利。',
+ footer_link_download: '⬇️ 下载APP',
+ download_title: '📱 下载 APP',
+ download_desc: '随时随地使用女性健康计算器，无需网络连接，离线也能用！',
+ download_btn: '⬇️ 下载 Android APK',
+ download_hint: '适用于 Android 5.0+ 设备 · 安装时请允许"未知来源"',
+ alert_select_lmp: '请选择末次月经日期',
+  alert_input_hw: '请输入身高和体重',
+  alert_fill_all: '请填写完整信息',
+  days_later: '天后',
+  arrived: '已到',
+  days: '天',
+  week: '周',
+  day: '天',
+  month: '月',
+  date_suffix: '日',
+  day_names: ['日','一','二','三','四','五','六'],
+  cal_month_format: '{y}年{m}月',
+  ovu_tip_future: '距排卵日还有 {d} 天，在易孕期内同房可提高受孕机会。',
+  ovu_tip_today: '今天就是排卵日！是受孕最佳时机。',
+  ovu_tip_past: '排卵日已过 {d} 天，下个周期将在约 {r} 天后。',
+ },
+ 'zh-Hant': {
   header_title: '🌸 女性健康計算器',
-  tab_period_short: '經期', tab_bmi_short: 'BMI', tab_pregnancy_short: '預產期', tab_calorie_short: '熱量', tab_water_short: '飲水', tab_ovulation_short: '排卵',
-  period_title: '經期追蹤 & 預測', period_desc: '輸入你的經期資訊，預測下次月經、排卵日和易孕期',
-  period_lmp: '末次月經第一天 <span class="hint">(LMP)</span>', period_cycle: '月經週期 <span class="hint">(天)</span>', period_length: '經期天數 <span class="hint">(天)</span>',
-  period_btn: '📅 計算預測', period_result_title: '預測結果', period_next: '下次月經', period_ovulation: '排卵日',
-  period_fertile_start: '易孕期開始', period_fertile_end: '易孕期結束', period_in: '距下次月經',
-  legend_period: '經期', legend_ovulation: '排卵日', legend_fertile: '易孕期', legend_today: '今天',
-  bmi_title: 'BMI 體重指數計算', bmi_desc: '計算身體質量指數，了解你的體重健康範圍',
-  bmi_height: '身高 <span class="hint">(cm)</span>', bmi_weight: '體重 <span class="hint">(kg)</span>', bmi_btn: '📊 計算BMI',
-  bmi_result_title: 'BMI 結果', bmi_your: '你的 BMI', bmi_underweight: '<18.5 偏瘦', bmi_normal: '18.5-24 正常', bmi_overweight: '24-28 偏胖', bmi_obese: '≥28 肥胖',
-  bmi_ideal_low: '健康體重下限 (kg)', bmi_ideal_high: '健康體重上限 (kg)',
-  bmi_tag_underweight: '偏瘦', bmi_tag_normal: '正常 ✓', bmi_tag_overweight: '偏胖', bmi_tag_obese: '肥胖',
-  edd_title: '預產期計算', edd_desc: '根據末次月經日期計算預產期和當前孕週',
-  edd_lmp: '末次月經第一天 <span class="hint">(LMP)</span>', edd_btn: '👶 計算預產期',
-  edd_result_title: '預產期結果', edd_date: '預產期', edd_weeks: '當前孕週', edd_trimester: '所處階段', edd_remaining: '距離預產期', edd_conception: '大約受孕日',
-  edd_t1: '孕早期', edd_t2: '孕中期', edd_t3: '孕晚期', edd_delivery: '分娩',
-  edd_t1_name: '孕早期', edd_t2_name: '孕中期', edd_t3_name: '孕晚期', edd_arrived: '已到/已過',
-  cal_title: '每日熱量需求計算', cal_desc: '根據個人數據計算基礎代謝率和每日推薦熱量攝入',
-  cal_age: '年齡 <span class="hint">(歲)</span>', cal_height: '身高 <span class="hint">(cm)</span>', cal_weight: '體重 <span class="hint">(kg)</span>', cal_activity: '活動水平',
-  cal_act_sedentary: '久坐不動', cal_act_light: '輕度活動 (1-3次/週)', cal_act_moderate: '中度活動 (3-5次/週)', cal_act_active: '高度活動 (6-7次/週)', cal_act_very: '極高活動 (體力勞動)',
-  cal_btn: '🔥 計算熱量', cal_result_title: '熱量需求結果', cal_bmr_label: '基礎代謝率 (BMR) kcal/天', cal_tdee_label: '每日總消耗 (TDEE)', cal_loss_label: '溫和減重', cal_gain_label: '健康增重', cal_maintain_label: '維持體重',
-  water_title: '每日飲水追蹤', water_desc: '點擊水杯記錄每日飲水量，建議每日8杯（約2000ml）',
-  water_weight: '體重 <span class="hint">(kg)</span>', water_cup: '每杯容量 <span class="hint">(ml)</span>', water_reset: '🔄 重置今日', water_target: '目標', water_cups: '杯',
-  ovu_title: '排卵日計算', ovu_desc: '幫助預測排卵日和最佳受孕時間窗口', ovu_lmp: '末次月經第一天', ovu_cycle: '平均月經週期 <span class="hint">(天)</span>',
-  ovu_btn: '🥚 計算排卵日', ovu_result_title: '排卵預測', ovu_day_label: '預計排卵日', ovu_fertile_start_label: '最佳受孕開始', ovu_fertile_end_label: '最佳受孕結束', ovu_tip_label: '小貼士',
-  footer_link_terms: '📜 使用條款', footer_link_disclaimer: '⚠️ 免責聲明', footer_link_contact: '📬 聯絡方式',
-  footer_terms_title: '📜 使用條款', footer_terms_1: '本工具僅供健康參考用途，不構成任何醫學診斷或治療建議。', footer_terms_2: '計算結果基於通用公式估算，個體差異可能導致結果不準確。', footer_terms_3: '使用者應根據自身情況諮詢專業醫療人員，切勿僅依賴本工具做出健康決策。', footer_terms_4: '本網站不對使用本工具所產生的任何後果承擔責任。',
-  footer_disclaimer_title: '⚠️ 免責聲明', footer_disclaimer_1: '本網站所有計算工具均基於公開醫學公式，僅供參考。', footer_disclaimer_2: '經期預測、排卵日計算等結果可能因個人生理差異而有所不同。', footer_disclaimer_3: 'BMI、熱量等計算不適用於孕婦、哺乳期女性及特殊疾病患者。', footer_disclaimer_4: '如有任何健康問題，請務必諮詢持證醫生或其他專業醫療機構。',
-  footer_contact_title: '📬 聯絡方式', footer_contact_desc: '如有問題、建議或回饋，歡迎透過以下方式聯絡我們：', footer_contact_note: '我們將在合理時間內回覆您的來信。',
-  footer_brand: '🌸 女性健康計算器 — 了解身體，關愛自己', footer_copyright: '© 2026 女性健康計算器 保留所有權利。',
-  footer_link_download: '⬇️ 下載APP', download_title: '📱 下載 APP', download_desc: '隨時隨地使用，離線也能用！', download_btn: '⬇️ 下載 Android APK', download_hint: 'Android 5.0+ · 允許「未知來源」安裝',
-  alert_select_lmp: '請選擇末次月經日期',alert_input_hw: '請輸入身高和體重', alert_fill_all: '請填寫完整資訊',
-  days_later: '天後', arrived: '已到', days: '天', week: '週', day: '天', month: '月', date_suffix: '日',
-  day_names: ['日','一','二','三','四','五','六'], cal_month_format: '{y}年{m}月',
-  ovu_tip_future: '距排卵日還有 {d} 天，在易孕期內同房可提高受孕機會。', ovu_tip_today: '今天就是排卵日！是受孕最佳時機。', ovu_tip_past: '排卵日已過 {d} 天，下個週期將在約 {r} 天後。',
-},
-'en': {
-  header_title: "🌸 Women's Health Calc",
-  tab_period_short: 'Period', tab_bmi_short: 'BMI', tab_pregnancy_short: 'Due Date', tab_calorie_short: 'Calories', tab_water_short: 'Water', tab_ovulation_short: 'Ovulation',
-  period_title: 'Period Tracking & Prediction', period_desc: 'Enter your period info to predict next period, ovulation day, and fertile window',
-  period_lmp: 'First Day of Last Period <span class="hint">(LMP)</span>', period_cycle: 'Cycle Length <span class="hint">(days)</span>', period_length: 'Period Duration <span class="hint">(days)</span>',
-  period_btn: '📅 Calculate', period_result_title: 'Prediction Results', period_next: 'Next Period', period_ovulation: 'Ovulation Day',
-  period_fertile_start: 'Fertile Window Start', period_fertile_end: 'Fertile Window End', period_in: 'Days to Next Period',
-  legend_period: 'Period', legend_ovulation: 'Ovulation', legend_fertile: 'Fertile', legend_today: 'Today',
-  bmi_title: 'BMI Calculator', bmi_desc: 'Calculate your Body Mass Index and understand your healthy weight range',
-  bmi_height: 'Height <span class="hint">(cm)</span>', bmi_weight: 'Weight <span class="hint">(kg)</span>', bmi_btn: '📊 Calculate BMI',
-  bmi_result_title: 'BMI Results', bmi_your: 'Your BMI', bmi_underweight: '<18.5 Underweight', bmi_normal: '18.5-24 Normal', bmi_overweight: '24-28 Overweight', bmi_obese: '≥28 Obese',
-  bmi_ideal_low: 'Healthy Weight Low (kg)', bmi_ideal_high: 'Healthy Weight High (kg)',
-  bmi_tag_underweight: 'Underweight', bmi_tag_normal: 'Normal ✓', bmi_tag_overweight: 'Overweight', bmi_tag_obese: 'Obese',
-  edd_title: 'Due Date Calculator', edd_desc: 'Calculate your estimated due date and current gestational week based on LMP',
-  edd_lmp: 'First Day of Last Period <span class="hint">(LMP)</span>', edd_btn: '👶 Calculate Due Date',
-  edd_result_title: 'Due Date Results', edd_date: 'Estimated Due Date', edd_weeks: 'Current Gestational Week', edd_trimester: 'Current Stage', edd_remaining: 'Days Until Due Date', edd_conception: 'Estimated Conception Date',
-  edd_t1: '1st Trimester', edd_t2: '2nd Trimester', edd_t3: '3rd Trimester', edd_delivery: 'Delivery',
-  edd_t1_name: '1st Trimester', edd_t2_name: '2nd Trimester', edd_t3_name: '3rd Trimester', edd_arrived: 'Due / Overdue',
-  cal_title: 'Daily Calorie Needs', cal_desc: 'Calculate your Basal Metabolic Rate and recommended daily calorie intake',
-  cal_age: 'Age <span class="hint">(years)</span>', cal_height: 'Height <span class="hint">(cm)</span>', cal_weight: 'Weight <span class="hint">(kg)</span>', cal_activity: 'Activity Level',
-  cal_act_sedentary: 'Sedentary', cal_act_light: 'Lightly Active (1-3x/week)', cal_act_moderate: 'Moderately Active (3-5x/week)', cal_act_active: 'Very Active (6-7x/week)', cal_act_very: 'Extremely Active (physical job)',
-  cal_btn: '🔥 Calculate Calories', cal_result_title: 'Calorie Needs Results', cal_bmr_label: 'Basal Metabolic Rate (BMR) kcal/day', cal_tdee_label: 'Total Daily Expenditure (TDEE)', cal_loss_label: 'Moderate Weight Loss', cal_gain_label: 'Healthy Weight Gain', cal_maintain_label: 'Maintain Weight',
-  water_title: 'Daily Water Intake Tracker', water_desc: 'Click glasses to track your daily water intake. Recommended: 8 glasses (~2000ml)',
-  water_weight: 'Weight <span class="hint">(kg)</span>', water_cup: 'Cup Size <span class="hint">(ml)</span>', water_reset: '🔄 Reset Today', water_target: 'Goal', water_cups: 'cups',
-  ovu_title: 'Ovulation Day Calculator', ovu_desc: 'Predict your ovulation day and optimal conception window', ovu_lmp: 'First Day of Last Period', ovu_cycle: 'Average Cycle Length <span class="hint">(days)</span>',
-  ovu_btn: '🥚 Calculate Ovulation', ovu_result_title: 'Ovulation Prediction', ovu_day_label: 'Estimated Ovulation Day', ovu_fertile_start_label: 'Best Conception Window Start', ovu_fertile_end_label: 'Best Conception Window End', ovu_tip_label: 'Tip',
-  footer_link_terms: '📜 Terms of Use', footer_link_disclaimer: '⚠️ Disclaimer', footer_link_contact: '📬 Contact Us',
-  footer_terms_title: '📜 Terms of Use', footer_terms_1: 'This tool is for general health reference only and does not constitute medical diagnosis or treatment advice.', footer_terms_2: 'Calculation results are based on standard formulas; individual differences may affect accuracy.', footer_terms_3: 'Users should consult qualified healthcare professionals and should not rely solely on this tool for health decisions.', footer_terms_4: 'This website assumes no liability for any consequences arising from the use of this tool.',
-  footer_disclaimer_title: '⚠️ Disclaimer', footer_disclaimer_1: 'All calculator tools on this website are based on publicly available medical formulas and are for reference only.', footer_disclaimer_2: 'Period prediction, ovulation calculation, and other results may vary due to individual physiological differences.', footer_disclaimer_3: 'BMI and calorie calculations are not applicable to pregnant women, breastfeeding mothers, or individuals with specific medical conditions.', footer_disclaimer_4: 'For any health concerns, please consult a licensed physician or other qualified healthcare provider.',
-  footer_contact_title: '📬 Contact Us', footer_contact_desc: 'For questions, suggestions, or feedback, please reach out to us:', footer_contact_note: 'We will respond to your message within a reasonable time.',
-  footer_brand: "🌸 Women's Health Calculator — Know your body, care for yourself", footer_copyright: "© 2026 Women's Health Calculator. All rights reserved.",
-  footer_link_download: '⬇️ Download APP', download_title: '📱 Download APP', download_desc: 'Use it anytime, even offline!', download_btn: '⬇️ Download Android APK', download_hint: 'Android 5.0+ · Allow "Unknown sources"',
-  alert_select_lmp: 'Please select the first day of your last period',alert_input_hw: 'Please enter your height and weight', alert_fill_all: 'Please fill in all information',
-  days_later: 'days later', arrived: 'Arrived', days: 'days', week: 'w', day: 'd', month: '', date_suffix: '',
-  day_names: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], cal_month_format: '{m} {y}',
-  ovu_tip_future: '{d} days until ovulation. Intercourse during the fertile window increases conception chances.', ovu_tip_today: 'Today is your ovulation day! Best time for conception.', ovu_tip_past: 'Ovulation was {d} days ago. Next cycle in about {r} days.',
-}
+  header_desc: '了解身體，關愛自己 — 多功能健康管理工具',
+  tab_period: '🩸 經期追蹤',
+  tab_bmi: '⚖️ BMI計算',
+  tab_pregnancy: '🤰 預產期',
+  tab_calorie: '🔥 每日熱量',
+  tab_water: '💧 飲水追蹤',
+  tab_ovulation: '🥚 排卵計算',
+  period_title: '經期追蹤 & 預測',
+  period_desc: '輸入你的經期資訊，預測下次月經、排卵日和易孕期',
+  period_lmp: '末次月經第一天 <span class="hint">(LMP)</span>',
+  period_cycle: '月經週期 <span class="hint">(天)</span>',
+  period_length: '經期天數 <span class="hint">(天)</span>',
+  period_btn: '📅 計算預測',
+  period_result_title: '預測結果',
+  period_next: '下次月經',
+  period_ovulation: '排卵日',
+  period_fertile_start: '易孕期開始',
+  period_fertile_end: '易孕期結束',
+  period_in: '距下次月經',
+  legend_period: '經期',
+  legend_ovulation: '排卵日',
+  legend_fertile: '易孕期',
+  legend_today: '今天',
+  bmi_title: 'BMI 體重指數計算',
+  bmi_desc: '計算身體質量指數，了解你的體重健康範圍',
+  bmi_height: '身高 <span class="hint">(cm)</span>',
+  bmi_weight: '體重 <span class="hint">(kg)</span>',
+  bmi_btn: '📊 計算BMI',
+  bmi_result_title: 'BMI 結果',
+  bmi_your: '你的 BMI',
+  bmi_underweight: '<18.5 偏瘦',
+  bmi_normal: '18.5-24 正常',
+  bmi_overweight: '24-28 偏胖',
+  bmi_obese: '≥28 肥胖',
+  bmi_ideal_low: '健康體重下限 (kg)',
+  bmi_ideal_high: '健康體重上限 (kg)',
+  bmi_tag_underweight: '偏瘦',
+  bmi_tag_normal: '正常 ✓',
+  bmi_tag_overweight: '偏胖',
+  bmi_tag_obese: '肥胖',
+  edd_title: '預產期計算',
+  edd_desc: '根據末次月經日期計算預產期和當前孕週',
+  edd_lmp: '末次月經第一天 <span class="hint">(LMP)</span>',
+  edd_btn: '👶 計算預產期',
+  edd_result_title: '預產期結果',
+  edd_date: '預產期',
+  edd_weeks: '當前孕週',
+  edd_trimester: '所處階段',
+  edd_remaining: '距離預產期',
+  edd_conception: '大約受孕日',
+  edd_t1: '孕早期',
+  edd_t2: '孕中期',
+  edd_t3: '孕晚期',
+  edd_delivery: '分娩',
+  edd_t1_name: '孕早期',
+  edd_t2_name: '孕中期',
+  edd_t3_name: '孕晚期',
+  edd_arrived: '已到/已過',
+  cal_title: '每日熱量需求計算',
+  cal_desc: '根據個人數據計算基礎代謝率和每日推薦熱量攝入',
+  cal_age: '年齡 <span class="hint">(歲)</span>',
+  cal_height: '身高 <span class="hint">(cm)</span>',
+  cal_weight: '體重 <span class="hint">(kg)</span>',
+  cal_activity: '活動水平',
+  cal_act_sedentary: '久坐不動',
+  cal_act_light: '輕度活動 (1-3次/週)',
+  cal_act_moderate: '中度活動 (3-5次/週)',
+  cal_act_active: '高度活動 (6-7次/週)',
+  cal_act_very: '極高活動 (體力勞動)',
+  cal_btn: '🔥 計算熱量',
+  cal_result_title: '熱量需求結果',
+  cal_bmr_label: '基礎代謝率 (BMR) kcal/天',
+  cal_tdee_label: '每日總消耗 (TDEE)',
+  cal_loss_label: '溫和減重',
+  cal_gain_label: '健康增重',
+  cal_maintain_label: '維持體重',
+  water_title: '每日飲水追蹤',
+  water_desc: '點擊水杯記錄每日飲水量，建議每日8杯（約2000ml）',
+  water_weight: '體重 <span class="hint">(kg)</span>',
+  water_cup: '每杯容量 <span class="hint">(ml)</span>',
+  water_reset: '🔄 重置今日',
+  water_target: '目標',
+  water_cups: '杯',
+  ovu_title: '排卵日計算',
+  ovu_desc: '幫助預測排卵日和最佳受孕時間窗口',
+  ovu_lmp: '末次月經第一天',
+  ovu_cycle: '平均月經週期 <span class="hint">(天)</span>',
+  ovu_btn: '🥚 計算排卵日',
+  ovu_result_title: '排卵預測',
+  ovu_day_label: '預計排卵日',
+  ovu_fertile_start_label: '最佳受孕開始',
+  ovu_fertile_end_label: '最佳受孕結束',
+  ovu_tip_label: '小貼士',
+  footer: '🌸 女性健康計算器 — 僅供參考，不構成醫學建議。如有健康問題請諮詢專業醫生。',
+  footer_terms_title: '📜 使用條款',
+  footer_link_terms: '📜 使用條款',
+  footer_link_disclaimer: '⚠️ 免責聲明',
+  footer_link_contact: '📬 聯絡方式',
+  footer_terms_1: '本工具僅供健康參考用途，不構成任何醫學診斷或治療建議。',
+  footer_terms_2: '計算結果基於通用公式估算，個體差異可能導致結果不準確。',
+  footer_terms_3: '使用者應根據自身情況諮詢專業醫療人員，切勿僅依賴本工具做出健康決策。',
+  footer_terms_4: '本網站不對使用本工具所產生的任何後果承擔責任。',
+  footer_disclaimer_title: '⚠️ 免責聲明',
+  footer_disclaimer_1: '本網站所有計算工具均基於公開醫學公式，僅供參考。',
+  footer_disclaimer_2: '經期預測、排卵日計算等結果可能因個人生理差異而有所不同。',
+  footer_disclaimer_3: 'BMI、熱量等計算不適用於孕婦、哺乳期女性及特殊疾病患者。',
+  footer_disclaimer_4: '如有任何健康問題，請務必諮詢持證醫生或其他專業醫療機構。',
+  footer_contact_title: '📬 聯絡方式',
+  footer_contact_desc: '如有問題、建議或回饋，歡迎透過以下方式聯絡我們：',
+  footer_contact_note: '我們將在合理時間內回覆您的來信。',
+  footer_brand: '🌸 女性健康計算器 — 了解身體，關愛自己',
+ footer_copyright: '© 2026 女性健康計算器 保留所有權利。',
+ footer_link_download: '⬇️ 下載APP',
+ download_title: '📱 下載 APP',
+ download_desc: '隨時隨地使用女性健康計算器，無需網路連線，離線也能用！',
+ download_btn: '⬇️ 下載 Android APK',
+ download_hint: '適用於 Android 5.0+ 裝置 · 安裝時請允許「未知來源」',
+ alert_select_lmp: '請選擇末次月經日期',
+  alert_input_hw: '請輸入身高和體重',
+  alert_fill_all: '請填寫完整資訊',
+  days_later: '天後',
+  arrived: '已到',
+  days: '天',
+  week: '週',
+  day: '天',
+  month: '月',
+  date_suffix: '日',
+  day_names: ['日','一','二','三','四','五','六'],
+  cal_month_format: '{y}年{m}月',
+  ovu_tip_future: '距排卵日還有 {d} 天，在易孕期內同房可提高受孕機會。',
+  ovu_tip_today: '今天就是排卵日！是受孕最佳時機。',
+  ovu_tip_past: '排卵日已過 {d} 天，下個週期將在約 {r} 天後。',
+ },
+ 'en': {
+  header_title: "🌸 Women's Health Calculator",
+  header_desc: 'Know your body, care for yourself — All-in-one health tool',
+  tab_period: '🩸 Period Tracker',
+  tab_bmi: '⚖️ BMI Calculator',
+  tab_pregnancy: '🤰 Due Date',
+  tab_calorie: '🔥 Daily Calories',
+  tab_water: '💧 Water Tracker',
+  tab_ovulation: '🥚 Ovulation',
+  period_title: 'Period Tracking & Prediction',
+  period_desc: 'Enter your period info to predict next period, ovulation day, and fertile window',
+  period_lmp: 'First Day of Last Period <span class="hint">(LMP)</span>',
+  period_cycle: 'Cycle Length <span class="hint">(days)</span>',
+  period_length: 'Period Duration <span class="hint">(days)</span>',
+  period_btn: '📅 Calculate',
+  period_result_title: 'Prediction Results',
+  period_next: 'Next Period',
+  period_ovulation: 'Ovulation Day',
+  period_fertile_start: 'Fertile Window Start',
+  period_fertile_end: 'Fertile Window End',
+  period_in: 'Days to Next Period',
+  legend_period: 'Period',
+  legend_ovulation: 'Ovulation',
+  legend_fertile: 'Fertile Window',
+  legend_today: 'Today',
+  bmi_title: 'BMI Calculator',
+  bmi_desc: 'Calculate your Body Mass Index and understand your healthy weight range',
+  bmi_height: 'Height <span class="hint">(cm)</span>',
+  bmi_weight: 'Weight <span class="hint">(kg)</span>',
+  bmi_btn: '📊 Calculate BMI',
+  bmi_result_title: 'BMI Results',
+  bmi_your: 'Your BMI',
+  bmi_underweight: '<18.5 Underweight',
+  bmi_normal: '18.5-24 Normal',
+  bmi_overweight: '24-28 Overweight',
+  bmi_obese: '≥28 Obese',
+  bmi_ideal_low: 'Healthy Weight Low (kg)',
+  bmi_ideal_high: 'Healthy Weight High (kg)',
+  bmi_tag_underweight: 'Underweight',
+  bmi_tag_normal: 'Normal ✓',
+  bmi_tag_overweight: 'Overweight',
+  bmi_tag_obese: 'Obese',
+  edd_title: 'Due Date Calculator',
+  edd_desc: 'Calculate your estimated due date and current gestational week based on LMP',
+  edd_lmp: 'First Day of Last Period <span class="hint">(LMP)</span>',
+  edd_btn: '👶 Calculate Due Date',
+  edd_result_title: 'Due Date Results',
+  edd_date: 'Estimated Due Date',
+  edd_weeks: 'Current Gestational Week',
+  edd_trimester: 'Current Stage',
+  edd_remaining: 'Days Until Due Date',
+  edd_conception: 'Estimated Conception Date',
+  edd_t1: '1st Trimester',
+  edd_t2: '2nd Trimester',
+  edd_t3: '3rd Trimester',
+  edd_delivery: 'Delivery',
+  edd_t1_name: '1st Trimester',
+  edd_t2_name: '2nd Trimester',
+  edd_t3_name: '3rd Trimester',
+  edd_arrived: 'Due / Overdue',
+  cal_title: 'Daily Calorie Needs Calculator',
+  cal_desc: 'Calculate your Basal Metabolic Rate and recommended daily calorie intake',
+  cal_age: 'Age <span class="hint">(years)</span>',
+  cal_height: 'Height <span class="hint">(cm)</span>',
+  cal_weight: 'Weight <span class="hint">(kg)</span>',
+  cal_activity: 'Activity Level',
+  cal_act_sedentary: 'Sedentary',
+  cal_act_light: 'Lightly Active (1-3x/week)',
+  cal_act_moderate: 'Moderately Active (3-5x/week)',
+  cal_act_active: 'Very Active (6-7x/week)',
+  cal_act_very: 'Extremely Active (physical job)',
+  cal_btn: '🔥 Calculate Calories',
+  cal_result_title: 'Calorie Needs Results',
+  cal_bmr_label: 'Basal Metabolic Rate (BMR) kcal/day',
+  cal_tdee_label: 'Total Daily Expenditure (TDEE)',
+  cal_loss_label: 'Moderate Weight Loss',
+  cal_gain_label: 'Healthy Weight Gain',
+  cal_maintain_label: 'Maintain Weight',
+  water_title: 'Daily Water Intake Tracker',
+  water_desc: 'Click glasses to track your daily water intake. Recommended: 8 glasses (~2000ml)',
+  water_weight: 'Weight <span class="hint">(kg)</span>',
+  water_cup: 'Cup Size <span class="hint">(ml)</span>',
+  water_reset: '🔄 Reset Today',
+  water_target: 'Goal',
+  water_cups: 'cups',
+  ovu_title: 'Ovulation Day Calculator',
+  ovu_desc: 'Predict your ovulation day and optimal conception window',
+  ovu_lmp: 'First Day of Last Period',
+  ovu_cycle: 'Average Cycle Length <span class="hint">(days)</span>',
+  ovu_btn: '🥚 Calculate Ovulation',
+  ovu_result_title: 'Ovulation Prediction',
+  ovu_day_label: 'Estimated Ovulation Day',
+  ovu_fertile_start_label: 'Best Conception Window Start',
+  ovu_fertile_end_label: 'Best Conception Window End',
+  ovu_tip_label: 'Tip',
+  footer: "🌸 Women's Health Calculator — For reference only, not medical advice. Consult a doctor for health concerns.",
+  footer_terms_title: '📜 Terms of Use',
+  footer_link_terms: '📜 Terms of Use',
+  footer_link_disclaimer: '⚠️ Disclaimer',
+  footer_link_contact: '📬 Contact Us',
+  footer_terms_1: 'This tool is for general health reference only and does not constitute medical diagnosis or treatment advice.',
+  footer_terms_2: 'Calculation results are based on standard formulas; individual differences may affect accuracy.',
+  footer_terms_3: 'Users should consult qualified healthcare professionals and should not rely solely on this tool for health decisions.',
+  footer_terms_4: 'This website assumes no liability for any consequences arising from the use of this tool.',
+  footer_disclaimer_title: '⚠️ Disclaimer',
+  footer_disclaimer_1: 'All calculator tools on this website are based on publicly available medical formulas and are for reference only.',
+  footer_disclaimer_2: 'Period prediction, ovulation calculation, and other results may vary due to individual physiological differences.',
+  footer_disclaimer_3: 'BMI and calorie calculations are not applicable to pregnant women, breastfeeding mothers, or individuals with specific medical conditions.',
+  footer_disclaimer_4: 'For any health concerns, please consult a licensed physician or other qualified healthcare provider.',
+  footer_contact_title: '📬 Contact Us',
+  footer_contact_desc: 'For questions, suggestions, or feedback, please reach out to us:',
+  footer_contact_note: 'We will respond to your message within a reasonable time.',
+ footer_brand: "🌸 Women's Health Calculator — Know your body, care for yourself",
+ footer_copyright: "© 2026 Women's Health Calculator. All rights reserved.",
+ footer_link_download: '⬇️ Download APP',
+ download_title: '📱 Download APP',
+ download_desc: "Use the Women's Health Calculator anytime, anywhere — works offline without internet!",
+ download_btn: '⬇️ Download Android APK',
+ download_hint: 'For Android 5.0+ devices · Allow "Unknown sources" to install',
+ alert_select_lmp: 'Please select the first day of your last period',
+  alert_input_hw: 'Please enter your height and weight',
+  alert_fill_all: 'Please fill in all information',
+  days_later: 'days later',
+  arrived: 'Arrived',
+  days: 'days',
+  week: 'w',
+  day: 'd',
+  month: '',
+  date_suffix: '',
+  day_names: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+  cal_month_format: '{m} {y}',
+  ovu_tip_future: '{d} days until ovulation. Intercourse during the fertile window increases conception chances.',
+  ovu_tip_today: 'Today is your ovulation day! Best time for conception.',
+  ovu_tip_past: 'Ovulation was {d} days ago. Next cycle in about {r} days.',
+ }
 };
 
 let currentLang = localStorage.getItem('whc_lang') || 'zh-CN';
-function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || (i18n['zh-CN'][key]) || key; }
-function switchLang(lang) {
-  currentLang = lang; localStorage.setItem('whc_lang', lang);
-  document.documentElement.lang = { 'zh-CN':'zh-CN', 'zh-Hant':'zh-Hant', 'en':'en' }[lang] || 'zh-CN';
-  applyTranslations(); reRenderDynamicContent();
-}
-function applyTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); const val = t(key); if (val) el.innerHTML = val; });
-  document.querySelectorAll('[data-i18n-opt]').forEach(el => { const key = el.getAttribute('data-i18n-opt'); const val = t(key); if (val) el.textContent = val; });
-  document.querySelectorAll('.lang-btn').forEach(btn => { btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang); });
-  if (periodData.lmp) renderCalendar();
-  updateWaterUI();
-}
-function reRenderDynamicContent() {
-  if (document.getElementById('period-result').classList.contains('show') && periodData.lmp) calcPeriod();
-  if (document.getElementById('bmi-result').classList.contains('show')) { const h=parseFloat(document.getElementById('bmi-height').value),w=parseFloat(document.getElementById('bmi-weight').value); if(h&&w)calcBMI(); }
-  if (document.getElementById('edd-result').classList.contains('show')) { const s=document.getElementById('edd-lmp').value; if(s)calcEDD(); }
-  if (document.getElementById('cal-result').classList.contains('show')) { const a=parseInt(document.getElementById('cal-age').value),h=parseFloat(document.getElementById('cal-height').value),w=parseFloat(document.getElementById('cal-weight').value); if(a&&h&&w)calcCalorie(); }
-  if (document.getElementById('ovu-result').classList.contains('show')) { const s=document.getElementById('ovu-lmp').value; if(s)calcOvulation(); }
+
+function t(key) {
+ return (i18n[currentLang] && i18n[currentLang][key]) || (i18n['zh-CN'][key]) || key;
 }
 
-// ===== Tab Switch (Bottom Nav) =====
+function switchLang(lang) {
+ currentLang = lang;
+ localStorage.setItem('whc_lang', lang);
+ const langMap = { 'zh-CN': 'zh-CN', 'zh-Hant': 'zh-Hant', 'en': 'en' };
+ document.documentElement.lang = langMap[lang] || 'zh-CN';
+ applyTranslations();
+ reRenderDynamicContent();
+}
+
+function applyTranslations() {
+ document.querySelectorAll('[data-i18n]').forEach(el => {
+  const key = el.getAttribute('data-i18n');
+  const val = t(key);
+  if (val) el.innerHTML = val;
+ });
+ document.querySelectorAll('[data-i18n-opt]').forEach(el => {
+  const key = el.getAttribute('data-i18n-opt');
+  const val = t(key);
+  if (val) el.textContent = val;
+ });
+ document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+ });
+ if (periodData.lmp) renderCalendar();
+ updateWaterUI();
+}
+
+function reRenderDynamicContent() {
+ if (document.getElementById('period-result').classList.contains('show') && periodData.lmp) {
+  calcPeriod();
+ }
+ if (document.getElementById('bmi-result').classList.contains('show')) {
+  const h = parseFloat(document.getElementById('bmi-height').value);
+  const w = parseFloat(document.getElementById('bmi-weight').value);
+  if (h && w) calcBMI();
+ }
+ if (document.getElementById('edd-result').classList.contains('show')) {
+  const lmpStr = document.getElementById('edd-lmp').value;
+  if (lmpStr) calcEDD();
+ }
+ if (document.getElementById('cal-result').classList.contains('show')) {
+  const age = parseInt(document.getElementById('cal-age').value);
+  const h = parseFloat(document.getElementById('cal-height').value);
+  const w = parseFloat(document.getElementById('cal-weight').value);
+  if (age && h && w) calcCalorie();
+ }
+ if (document.getElementById('ovu-result').classList.contains('show')) {
+  const lmpStr = document.getElementById('ovu-lmp').value;
+  if (lmpStr) calcOvulation();
+ }
+}
+
+// ===== Tab Switch =====
 function switchTab(name) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelector('.nav-item[data-tab="'+name+'"]').classList.add('active');
-  document.getElementById('page-'+name).classList.add('active');
-  // Scroll to top
-  document.querySelector('.content').scrollTop = 0;
+ document.querySelectorAll('.tab-btn').forEach(b => {
+  b.classList.remove('active');
+  b.setAttribute('aria-selected', 'false');
+ });
+ document.querySelectorAll('.calculator-card').forEach(c => c.classList.remove('active'));
+ event.target.classList.add('active');
+ event.target.setAttribute('aria-selected', 'true');
+ document.getElementById('tab-' + name).classList.add('active');
 }
 
 // ===== Date Helpers =====
-function fmt(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function fmtLocale(d) { if(currentLang==='en'){const m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return m[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear();} return (d.getMonth()+1)+t('month')+d.getDate()+t('date_suffix'); }
-function addDays(d,n) { const r=new Date(d);r.setDate(r.getDate()+n);return r; }
-function diffDays(a,b) { return Math.round((b-a)/86400000); }
+function fmt(d) {
+ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function fmtLocale(d) {
+ if (currentLang === 'en') {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+ }
+ return (d.getMonth()+1) + t('month') + d.getDate() + t('date_suffix');
+}
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate()+n); return r; }
+function diffDays(a, b) { return Math.round((b - a) / 86400000); }
 
 // ===== Period Calculator =====
-let periodData = {}; let calYear, calMonth;
+let periodData = {};
+let calYear, calMonth;
+
 function calcPeriod() {
-  const lmpStr=document.getElementById('lmp-date').value; const cycle=parseInt(document.getElementById('cycle-length').value)||28; const pLen=parseInt(document.getElementById('period-length').value)||5;
-  if(!lmpStr){alert(t('alert_select_lmp'));return;}
-  const lmp=new Date(lmpStr); const nextPeriod=addDays(lmp,cycle); const ovulation=addDays(lmp,cycle-14); const fertileStart=addDays(ovulation,-5); const fertileEnd=addDays(ovulation,1);
-  const today=new Date();today.setHours(0,0,0,0); const daysToNext=diffDays(today,nextPeriod);
-  document.getElementById('next-period').textContent=fmtLocale(nextPeriod); document.getElementById('ovulation-day').textContent=fmtLocale(ovulation);
-  document.getElementById('fertile-start').textContent=fmtLocale(fertileStart); document.getElementById('fertile-end').textContent=fmtLocale(fertileEnd);
-  document.getElementById('period-in').textContent=daysToNext>0?daysToNext+' '+t('days_later'):t('arrived');
-  periodData={lmp,cycle,pLen,nextPeriod,ovulation,fertileStart,fertileEnd}; calYear=lmp.getFullYear(); calMonth=lmp.getMonth(); renderCalendar();
-  document.getElementById('period-result').classList.add('show');
+ const lmpStr = document.getElementById('lmp-date').value;
+ const cycle = parseInt(document.getElementById('cycle-length').value) || 28;
+ const pLen = parseInt(document.getElementById('period-length').value) || 5;
+ if (!lmpStr) { alert(t('alert_select_lmp')); return; }
+
+ const lmp = new Date(lmpStr);
+ const nextPeriod = addDays(lmp, cycle);
+ const ovulation = addDays(lmp, cycle - 14);
+ const fertileStart = addDays(ovulation, -5);
+ const fertileEnd = addDays(ovulation, 1);
+ const today = new Date(); today.setHours(0,0,0,0);
+ const daysToNext = diffDays(today, nextPeriod);
+
+ document.getElementById('next-period').textContent = fmtLocale(nextPeriod);
+ document.getElementById('ovulation-day').textContent = fmtLocale(ovulation);
+ document.getElementById('fertile-start').textContent = fmtLocale(fertileStart);
+ document.getElementById('fertile-end').textContent = fmtLocale(fertileEnd);
+ document.getElementById('period-in').textContent = daysToNext > 0 ? daysToNext + ' ' + t('days_later') : t('arrived');
+
+ periodData = { lmp, cycle, pLen, nextPeriod, ovulation, fertileStart, fertileEnd };
+ calYear = lmp.getFullYear();
+ calMonth = lmp.getMonth();
+ renderCalendar();
+
+ document.getElementById('period-result').classList.add('show');
 }
-const EN_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+const EN_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
 function renderCalendar() {
-  const grid=document.getElementById('cal-grid'); grid.innerHTML='';
-  let monthLabel; if(currentLang==='en'){monthLabel=EN_MONTHS[calMonth]+' '+calYear;}else{monthLabel=t('cal_month_format').replace('{y}',calYear).replace('{m}',calMonth+1);}
-  document.getElementById('cal-month-label').textContent=monthLabel;
-  t('day_names').forEach(d=>{const el=document.createElement('div');el.className='cal-day-name';el.textContent=d;grid.appendChild(el);});
-  const first=new Date(calYear,calMonth,1);const startDay=first.getDay();const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
-  const today=new Date();today.setHours(0,0,0,0); const prevDays=new Date(calYear,calMonth,0).getDate();
-  for(let i=startDay-1;i>=0;i--){const el=document.createElement('div');el.className='cal-day other-month';el.textContent=prevDays-i;grid.appendChild(el);}
-  for(let d=1;d<=daysInMonth;d++){const el=document.createElement('div');el.className='cal-day';el.textContent=d;const thisDate=new Date(calYear,calMonth,d);
-    for(let c=-1;c<=3;c++){const cs=addDays(periodData.lmp,c*periodData.cycle),ce=addDays(cs,periodData.pLen-1);if(thisDate>=cs&&thisDate<=ce)el.classList.add('period');}
-    for(let c=0;c<=3;c++){const ovu=addDays(periodData.lmp,c*periodData.cycle-14),fs=addDays(ovu,-5),fe=addDays(ovu,1);if(thisDate.getTime()===ovu.getTime())el.classList.add('ovulation');else if(thisDate>=fs&&thisDate<=fe&&!el.classList.contains('period'))el.classList.add('fertile');}
-    if(thisDate.getTime()===today.getTime())el.classList.add('today'); grid.appendChild(el);}
-  const totalCells=startDay+daysInMonth;const remaining=(7-totalCells%7)%7;
-  for(let i=1;i<=remaining;i++){const el=document.createElement('div');el.className='cal-day other-month';el.textContent=i;grid.appendChild(el);}
+ const grid = document.getElementById('cal-grid');
+ grid.innerHTML = '';
+
+ let monthLabel;
+ if (currentLang === 'en') {
+  monthLabel = EN_MONTHS[calMonth] + ' ' + calYear;
+ } else {
+  monthLabel = t('cal_month_format').replace('{y}', calYear).replace('{m}', calMonth + 1);
+ }
+ document.getElementById('cal-month-label').textContent = monthLabel;
+
+ const dayNames = t('day_names');
+ dayNames.forEach(d => {
+  const el = document.createElement('div');
+  el.className = 'cal-day-name';
+  el.textContent = d;
+  grid.appendChild(el);
+ });
+
+ const first = new Date(calYear, calMonth, 1);
+ const startDay = first.getDay();
+ const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+ const today = new Date(); today.setHours(0,0,0,0);
+
+ const prevDays = new Date(calYear, calMonth, 0).getDate();
+ for (let i = startDay - 1; i >= 0; i--) {
+  const el = document.createElement('div');
+  el.className = 'cal-day other-month';
+  el.textContent = prevDays - i;
+  grid.appendChild(el);
+ }
+
+ for (let d = 1; d <= daysInMonth; d++) {
+  const el = document.createElement('div');
+  el.className = 'cal-day';
+  el.textContent = d;
+  const thisDate = new Date(calYear, calMonth, d);
+
+  for (let c = -1; c <= 3; c++) {
+   const cycleStart = addDays(periodData.lmp, c * periodData.cycle);
+   const cycleEnd = addDays(cycleStart, periodData.pLen - 1);
+   if (thisDate >= cycleStart && thisDate <= cycleEnd) {
+    el.classList.add('period');
+   }
+  }
+
+  for (let c = 0; c <= 3; c++) {
+   const ovu = addDays(periodData.lmp, c * periodData.cycle - 14);
+   const fStart = addDays(ovu, -5);
+   const fEnd = addDays(ovu, 1);
+   if (thisDate.getTime() === ovu.getTime()) el.classList.add('ovulation');
+   else if (thisDate >= fStart && thisDate <= fEnd && !el.classList.contains('period')) el.classList.add('fertile');
+  }
+
+  if (thisDate.getTime() === today.getTime()) el.classList.add('today');
+  grid.appendChild(el);
+ }
+
+ const totalCells = startDay + daysInMonth;
+ const remaining = (7 - totalCells % 7) % 7;
+ for (let i = 1; i <= remaining; i++) {
+  const el = document.createElement('div');
+  el.className = 'cal-day other-month';
+  el.textContent = i;
+  grid.appendChild(el);
+ }
 }
-function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
 
-// ===== BMI =====
-function calcBMI(){const h=parseFloat(document.getElementById('bmi-height').value),w=parseFloat(document.getElementById('bmi-weight').value);if(!h||!w){alert(t('alert_input_hw'));return;}
-  const hm=h/100,bmi=w/(hm*hm),bmiRound=bmi.toFixed(1);let tag='',color='',barW=0;
-  if(bmi<18.5){tag=t('bmi_tag_underweight');color='#64b5f6';barW=(bmi/18.5)*25;}else if(bmi<24){tag=t('bmi_tag_normal');color='#81c784';barW=25+((bmi-18.5)/5.5)*25;}else if(bmi<28){tag=t('bmi_tag_overweight');color='#ffb74d';barW=50+((bmi-24)/4)*25;}else{tag=t('bmi_tag_obese');color='#e57373';barW=Math.min(75+((bmi-28)/12)*25,100);}
-  document.getElementById('bmi-value').textContent=bmiRound;const tagEl=document.getElementById('bmi-tag');tagEl.textContent=tag;tagEl.style.background=color+'22';tagEl.style.color=color;
-  document.getElementById('bmi-bar').style.width=barW+'%';document.getElementById('bmi-bar').style.background=color;
-  document.getElementById('bmi-ideal-low').textContent=(18.5*hm*hm).toFixed(1);document.getElementById('bmi-ideal-high').textContent=(24*hm*hm).toFixed(1);
-  document.getElementById('bmi-result').classList.add('show');}
+function calNav(dir) {
+ calMonth += dir;
+ if (calMonth > 11) { calMonth = 0; calYear++; }
+ if (calMonth < 0) { calMonth = 11; calYear--; }
+ renderCalendar();
+}
 
-// ===== EDD =====
-function calcEDD(){const lmpStr=document.getElementById('edd-lmp').value;if(!lmpStr){alert(t('alert_select_lmp'));return;}
-  const lmp=new Date(lmpStr),edd=addDays(lmp,280),conception=addDays(lmp,14),today=new Date();today.setHours(0,0,0,0);
-  const daysPregnant=diffDays(lmp,today),weeks=Math.floor(daysPregnant/7),days=daysPregnant%7,remaining=diffDays(today,edd);
-  let trimester='';if(weeks<13)trimester=t('edd_t1_name');else if(weeks<27)trimester=t('edd_t2_name');else trimester=t('edd_t3_name');
-  document.getElementById('edd-date').textContent=fmtLocale(edd)+' ('+fmt(edd)+')';document.getElementById('edd-weeks').textContent=weeks+t('week')+days+t('day');
-  document.getElementById('edd-trimester').textContent=trimester;document.getElementById('edd-remaining').textContent=remaining>0?remaining+' '+t('days'):t('edd_arrived');document.getElementById('edd-conception').textContent=fmtLocale(conception);
-  document.getElementById('edd-bar').style.width=Math.min(Math.max(daysPregnant/280*100,0),100)+'%';document.getElementById('edd-result').classList.add('show');}
+// ===== BMI Calculator =====
+function calcBMI() {
+ const h = parseFloat(document.getElementById('bmi-height').value);
+ const w = parseFloat(document.getElementById('bmi-weight').value);
+ if (!h || !w) { alert(t('alert_input_hw')); return; }
 
-// ===== Calorie =====
-function calcCalorie(){const age=parseInt(document.getElementById('cal-age').value),h=parseFloat(document.getElementById('cal-height').value),w=parseFloat(document.getElementById('cal-weight').value),activity=parseFloat(document.getElementById('cal-activity').value);
-  if(!age||!h||!w){alert(t('alert_fill_all'));return;}const bmr=Math.round(10*w+6.25*h-5*age-161),tdee=Math.round(bmr*activity);
-  document.getElementById('cal-bmr').textContent=bmr+' kcal';document.getElementById('cal-tdee').textContent=tdee+' kcal';document.getElementById('cal-loss').textContent=(tdee-500)+' kcal';document.getElementById('cal-gain').textContent=(tdee+300)+' kcal';document.getElementById('cal-maintain').textContent=tdee+' kcal';
-  document.getElementById('cal-result').classList.add('show');}
+ const hm = h / 100;
+ const bmi = w / (hm * hm);
+ const bmiRound = bmi.toFixed(1);
 
-// ===== Water =====
-let waterCount=0;
-function initWater(){const container=document.getElementById('water-glasses');container.innerHTML='';for(let i=0;i<10;i++){const glass=document.createElement('div');glass.className='water-glass';glass.onclick=()=>toggleWater(i);container.appendChild(glass);}updateWaterUI();}
-function toggleWater(idx){if(idx<waterCount){waterCount=idx;}else{waterCount=idx+1;}updateWaterUI();localStorage.setItem('waterCount',waterCount);localStorage.setItem('waterDate',fmt(new Date()));}
-function updateWaterUI(){const cupMl=parseInt(document.getElementById('water-cup').value)||250,weight=parseFloat(document.getElementById('water-weight').value)||55,target=Math.round(weight*30),current=waterCount*cupMl,pct=Math.min(current/target*100,100);
-  document.getElementById('water-ml').textContent=current+' ml';document.getElementById('water-target').textContent=t('water_target')+': '+target+' ml ('+Math.ceil(target/cupMl)+' '+t('water_cups')+')';
-  document.getElementById('water-bar').style.width=pct+'%';document.querySelectorAll('.water-glass').forEach((g,i)=>{g.classList.toggle('filled',i<waterCount);});}
-function resetWater(){waterCount=0;localStorage.setItem('waterCount',0);localStorage.setItem('waterDate',fmt(new Date()));updateWaterUI();}
-function restoreWater(){const saved=localStorage.getItem('waterDate'),today=fmt(new Date());if(saved===today){waterCount=parseInt(localStorage.getItem('waterCount'))||0;}else{waterCount=0;}initWater();}
-document.getElementById('water-weight').addEventListener('input',updateWaterUI);document.getElementById('water-cup').addEventListener('input',updateWaterUI);
+ let tag = '', color = '', barW = 0;
+ if (bmi < 18.5) { tag = t('bmi_tag_underweight'); color = '#64b5f6'; barW = (bmi / 18.5) * 25; }
+ else if (bmi < 24) { tag = t('bmi_tag_normal'); color = '#81c784'; barW = 25 + ((bmi - 18.5) / 5.5) * 25; }
+ else if (bmi < 28) { tag = t('bmi_tag_overweight'); color = '#ffb74d'; barW = 50 + ((bmi - 24) / 4) * 25; }
+ else { tag = t('bmi_tag_obese'); color = '#e57373'; barW = Math.min(75 + ((bmi - 28) / 12) * 25, 100); }
 
-// ===== Ovulation =====
-function calcOvulation(){const lmpStr=document.getElementById('ovu-lmp').value,cycle=parseInt(document.getElementById('ovu-cycle').value)||28;if(!lmpStr){alert(t('alert_select_lmp'));return;}
-  const lmp=new Date(lmpStr),ovuDay=addDays(lmp,cycle-14),fertileStart=addDays(ovuDay,-5),fertileEnd=addDays(ovuDay,1),today=new Date();today.setHours(0,0,0,0);const daysTo=diffDays(today,ovuDay);
-  document.getElementById('ovu-day').textContent=fmtLocale(ovuDay);document.getElementById('ovu-fertile-start').textContent=fmtLocale(fertileStart);document.getElementById('ovu-fertile-end').textContent=fmtLocale(fertileEnd);
-  let tip='';if(daysTo>0)tip=t('ovu_tip_future').replace('{d}',daysTo);else if(daysTo===0)tip=t('ovu_tip_today');else tip=t('ovu_tip_past').replace('{d}',Math.abs(daysTo)).replace('{r}',cycle-Math.abs(daysTo));
-  document.getElementById('ovu-tip').textContent=tip;document.getElementById('ovu-result').classList.add('show');}
+ const idealLow = (18.5 * hm * hm).toFixed(1);
+ const idealHigh = (24 * hm * hm).toFixed(1);
 
-// ===== Modal =====
-function openModal(name){document.getElementById('modal-'+name).classList.add('show');document.body.style.overflow='hidden';}
-function closeModal(name){document.getElementById('modal-'+name).classList.remove('show');document.body.style.overflow='';}
-function closeModalOutside(event,name){if(event.target===event.currentTarget)closeModal(name);}
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.show').forEach(m=>{const name=m.id.replace('modal-','');closeModal(name);});}});
+ document.getElementById('bmi-value').textContent = bmiRound;
+ const tagEl = document.getElementById('bmi-tag');
+ tagEl.textContent = tag;
+ tagEl.style.background = color + '22';
+ tagEl.style.color = color;
+
+ document.getElementById('bmi-bar').style.width = barW + '%';
+ document.getElementById('bmi-bar').style.background = color;
+ document.getElementById('bmi-ideal-low').textContent = idealLow;
+ document.getElementById('bmi-ideal-high').textContent = idealHigh;
+
+ document.getElementById('bmi-result').classList.add('show');
+}
+
+// ===== EDD Calculator =====
+function calcEDD() {
+ const lmpStr = document.getElementById('edd-lmp').value;
+ if (!lmpStr) { alert(t('alert_select_lmp')); return; }
+
+ const lmp = new Date(lmpStr);
+ const edd = addDays(lmp, 280);
+ const conception = addDays(lmp, 14);
+ const today = new Date(); today.setHours(0,0,0,0);
+ const daysPregnant = diffDays(lmp, today);
+ const weeks = Math.floor(daysPregnant / 7);
+ const days = daysPregnant % 7;
+ const remaining = diffDays(today, edd);
+
+ let trimester = '';
+ if (weeks < 13) trimester = t('edd_t1_name');
+ else if (weeks < 27) trimester = t('edd_t2_name');
+ else trimester = t('edd_t3_name');
+
+ document.getElementById('edd-date').textContent = fmtLocale(edd) + ' (' + fmt(edd) + ')';
+ document.getElementById('edd-weeks').textContent = weeks + t('week') + days + t('day');
+ document.getElementById('edd-trimester').textContent = trimester;
+ document.getElementById('edd-remaining').textContent = remaining > 0 ? remaining + ' ' + t('days') : t('edd_arrived');
+ document.getElementById('edd-conception').textContent = fmtLocale(conception);
+
+ const progress = Math.min(Math.max(daysPregnant / 280 * 100, 0), 100);
+ document.getElementById('edd-bar').style.width = progress + '%';
+
+ document.getElementById('edd-result').classList.add('show');
+}
+
+// ===== Calorie Calculator (Mifflin-St Jeor for women) =====
+function calcCalorie() {
+ const age = parseInt(document.getElementById('cal-age').value);
+ const h = parseFloat(document.getElementById('cal-height').value);
+ const w = parseFloat(document.getElementById('cal-weight').value);
+ const activity = parseFloat(document.getElementById('cal-activity').value);
+ if (!age || !h || !w) { alert(t('alert_fill_all')); return; }
+
+ const bmr = Math.round(10 * w + 6.25 * h - 5 * age - 161);
+ const tdee = Math.round(bmr * activity);
+
+ document.getElementById('cal-bmr').textContent = bmr + ' kcal';
+ document.getElementById('cal-tdee').textContent = tdee + ' kcal';
+ document.getElementById('cal-loss').textContent = (tdee - 500) + ' kcal';
+ document.getElementById('cal-gain').textContent = (tdee + 300) + ' kcal';
+ document.getElementById('cal-maintain').textContent = tdee + ' kcal';
+
+ document.getElementById('cal-result').classList.add('show');
+}
+
+// ===== Water Tracker =====
+let waterCount = 0;
+
+function initWater() {
+ const container = document.getElementById('water-glasses');
+ container.innerHTML = '';
+ for (let i = 0; i < 10; i++) {
+  const glass = document.createElement('div');
+  glass.className = 'water-glass';
+  glass.onclick = () => toggleWater(i);
+  container.appendChild(glass);
+ }
+ updateWaterUI();
+}
+
+function toggleWater(idx) {
+ if (idx < waterCount) {
+  waterCount = idx;
+ } else {
+  waterCount = idx + 1;
+ }
+ updateWaterUI();
+ localStorage.setItem('waterCount', waterCount);
+ localStorage.setItem('waterDate', fmt(new Date()));
+}
+
+function updateWaterUI() {
+ const cupMl = parseInt(document.getElementById('water-cup').value) || 250;
+ const weight = parseFloat(document.getElementById('water-weight').value) || 55;
+ const target = Math.round(weight * 30);
+ const current = waterCount * cupMl;
+ const pct = Math.min(current / target * 100, 100);
+
+ document.getElementById('water-ml').textContent = current + ' ml';
+ document.getElementById('water-target').textContent = t('water_target') + ': ' + target + ' ml (' + Math.ceil(target / cupMl) + ' ' + t('water_cups') + ')';
+ document.getElementById('water-bar').style.width = pct + '%';
+
+ const glasses = document.querySelectorAll('.water-glass');
+ glasses.forEach((g, i) => {
+  g.classList.toggle('filled', i < waterCount);
+ });
+}
+
+function resetWater() {
+ waterCount = 0;
+ localStorage.setItem('waterCount', 0);
+ localStorage.setItem('waterDate', fmt(new Date()));
+ updateWaterUI();
+}
+
+function restoreWater() {
+ const saved = localStorage.getItem('waterDate');
+ const today = fmt(new Date());
+ if (saved === today) {
+  waterCount = parseInt(localStorage.getItem('waterCount')) || 0;
+ } else {
+  waterCount = 0;
+ }
+ initWater();
+}
+
+document.getElementById('water-weight').addEventListener('input', updateWaterUI);
+document.getElementById('water-cup').addEventListener('input', updateWaterUI);
+
+// ===== Ovulation Calculator =====
+function calcOvulation() {
+ const lmpStr = document.getElementById('ovu-lmp').value;
+ const cycle = parseInt(document.getElementById('ovu-cycle').value) || 28;
+ if (!lmpStr) { alert(t('alert_select_lmp')); return; }
+
+ const lmp = new Date(lmpStr);
+ const ovuDay = addDays(lmp, cycle - 14);
+ const fertileStart = addDays(ovuDay, -5);
+ const fertileEnd = addDays(ovuDay, 1);
+ const today = new Date(); today.setHours(0,0,0,0);
+ const daysTo = diffDays(today, ovuDay);
+
+ document.getElementById('ovu-day').textContent = fmtLocale(ovuDay);
+ document.getElementById('ovu-fertile-start').textContent = fmtLocale(fertileStart);
+ document.getElementById('ovu-fertile-end').textContent = fmtLocale(fertileEnd);
+
+ let tip = '';
+ if (daysTo > 0) tip = t('ovu_tip_future').replace('{d}', daysTo);
+ else if (daysTo === 0) tip = t('ovu_tip_today');
+ else tip = t('ovu_tip_past').replace('{d}', Math.abs(daysTo)).replace('{r}', cycle - Math.abs(daysTo));
+ document.getElementById('ovu-tip').textContent = tip;
+
+ document.getElementById('ovu-result').classList.add('show');
+}
+
+// ===== Modal Functions =====
+function openModal(name) {
+ document.getElementById('modal-' + name).classList.add('show');
+ document.body.style.overflow = 'hidden';
+}
+function closeModal(name) {
+ document.getElementById('modal-' + name).classList.remove('show');
+ document.body.style.overflow = '';
+}
+function closeModalOutside(event, name) {
+ if (event.target === event.currentTarget) closeModal(name);
+}
+// ESC key to close modals
+document.addEventListener('keydown', function(e) {
+ if (e.key === 'Escape') {
+  document.querySelectorAll('.modal-overlay.show').forEach(m => {
+   const name = m.id.replace('modal-','');
+   closeModal(name);
+  });
+ }
+});
 
 // ===== Init =====
-restoreWater();applyTranslations();
+restoreWater();
+applyTranslations();
 </script>
 </body>
 </html>
